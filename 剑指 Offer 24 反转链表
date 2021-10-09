@@ -20,3 +20,17 @@ public:
 
 第二次提交：
 使用递归法
+执行用时：4 ms, 在所有 C++ 提交中击败了88.86% 的用户
+内存消耗：8.3 MB, 在所有 C++ 提交中击败了7.14% 的用户
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
+        ListNode* newHead = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return newHead;
+    }
+};
