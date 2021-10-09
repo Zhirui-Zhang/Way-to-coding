@@ -33,15 +33,6 @@ public:
     }
 };
 
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack* obj = new MinStack();
- * obj->push(x);
- * obj->pop();
- * int param_3 = obj->top();
- * int param_4 = obj->min();
- */
-
 第二次提交：（优化版，改进了s2的初始top值，不必再判断是否为空，使得最终内存消耗减少0.1MB）
 class MinStack {
     stack<int> s1;  //数据栈
@@ -71,12 +62,3 @@ public:
         return s2.top();
     }
 };
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack* obj = new MinStack();
- * obj->push(x);
- * obj->pop();
- * int param_3 = obj->top();
- * int param_4 = obj->min();
- */
