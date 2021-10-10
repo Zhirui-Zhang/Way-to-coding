@@ -29,8 +29,8 @@ public:
     vector<int> v;    //定义返回数组
     vector<int> reversePrint(ListNode* head) {
         if(head == NULL)    return v;
-        reversePrint(head->next);
-        v.push_back(head->val);
-        return v;
+        reversePrint(head->next);   //不需要接受返回值也可
+        v.push_back(head->val);     
+        return v;   
     }
 };
