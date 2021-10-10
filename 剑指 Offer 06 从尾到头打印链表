@@ -34,3 +34,25 @@ public:
         return v;
     }
 };
+法3：入栈法
+执行用时：4 ms, 在所有 C++ 提交中击败了85.17% 的用户
+内存消耗：8.5 MB, 在所有 C++ 提交中击败了58.36% 的用户
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+    //入栈法
+    stack<int> s;
+    vector<int> v;
+    while(head)
+    {
+        s.push(head->val);
+        head = head->next;
+    }
+    while(!s.empty())
+    {
+        v.push_back(s.top());
+        s.pop();
+    }
+    return v;
+    }
+};
