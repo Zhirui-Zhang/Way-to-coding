@@ -26,11 +26,11 @@ public:
 内存消耗：248.3 MB, 在所有 C++ 提交中击败了5.03% 的用户
 class Solution {
 public:
-    vector<int> v;    //定义返回数组
+    vector<int> v;    //定义返回数组，当采用递归法时必须定义为全局变量！
     vector<int> reversePrint(ListNode* head) {
-        if(head == NULL)    return v;
+        if(head == NULL)    return v;   //这里只需return v即可
         reversePrint(head->next);   //不需要接受返回值也可
-        v.push_back(head->val);     
-        return v;   
+        v.push_back(head->val);
+        return v;
     }
 };
