@@ -56,3 +56,30 @@ public:
     return v;
     }
 };
+法4：双指针法
+执行用时：4 ms, 在所有 C++ 提交中击败了85.17% 的用户
+内存消耗：8.4 MB, 在所有 C++ 提交中击败了89.96% 的用户
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+    //双指针法
+    vector<int> v;
+    ListNode* pre = NULL;
+    ListNode* cur = head;
+    while(cur)
+    {
+        ListNode* temp = cur;
+        cur = cur->next;
+        temp->next = pre;
+        pre = temp;
+    }
+    while(pre)
+    {
+        v.push_back(pre->val);
+        pre = pre->next;
+    }
+    return v;    
+    }
+};
+
+综上比较来看，目前最好的方法是双指针法！
