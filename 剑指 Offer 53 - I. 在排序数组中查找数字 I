@@ -1,0 +1,50 @@
+法1：暴力法
+执行用时: 8 ms
+内存消耗: 13 MB
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int num = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(nums[i] == target)   num++;
+        }
+        return num;
+    }
+};
+
+法2：二分法
+执行用时：12 ms, 在所有 C++ 提交中击败了16.41% 的用户
+内存消耗：12.9 MB, 在所有 C++ 提交中击败了34.45% 的用户
+class Solution {
+public:
+    //整合函数，用lower的布尔值判断求lIndex还是rIndex
+    int BinarySearch(vector<int>& nums, int target, bool lower)
+    {
+        int left = 0, right = nums.size() - 1, ans = nums.size(); //ans统计出现次数
+        while(left <= right)    //二分法边界条件为左 <= 右而非 < 因为防止未检测左右相等时值是否相等
+        {
+            int mid = (left + right) / 2;
+            if(nums[mid] > target || (nums[mid] >= target && lower))
+            {
+                right = mid - 1;
+                ans = mid;
+            }
+            else
+            {
+                left = mid + 1;
+            }
+        }
+        return ans;        
+    }
+
+    int search(vector<int>& nums, int target) {
+        int lIndex = BinarySearch(nums, target, true);
+        int rIndex = BinarySearch(nums, target, false) - 1;   
+        //lIndex rIndex分别记录在二分过程中第一个大于target和小于target的位置
+        if(lIndex <= rIndex && rIndex < nums.size() && 
+           nums[lIndex] == target && nums[rIndex] == target)    
+        return rIndex - lIndex + 1;
+        else    return 0;
+    }
+};
