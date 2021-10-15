@@ -1,0 +1,29 @@
+法1 哈希表unordered_map实现深层拷贝
+执行用时：8 ms, 在所有 C++ 提交中击败了77.83% 的用户
+内存消耗：11.2 MB, 在所有 C++ 提交中击败了24.60% 的用户
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if(head == NULL)    return head;
+
+        unordered_map<Node*, Node*> un_map;   //键值对<原cur节点，新cur节点>  <key, value>
+        Node* cur = head;     //用于创建un_map
+        while(cur != NULL)  //复制各节点，并建立 “原节点 -> 新节点” 的 Map 映射
+        {
+            un_map[cur] = new Node(cur->val);
+            cur = cur->next;
+        }
+
+        cur = head;     //重置cur的值
+        while(cur != NULL)  //同时复制next和random的value
+        {
+            un_map[cur]->next = un_map[cur->next];
+            un_map[cur]->random = un_map[cur->random];
+            cur = cur->next;
+        }
+
+        return un_map[head];
+    }
+};
+
+法2：
