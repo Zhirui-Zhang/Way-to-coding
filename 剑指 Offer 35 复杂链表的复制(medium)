@@ -1,3 +1,7 @@
+若直接返回head或者构建vector插入，显示错误
+Node with label 7 was not copied but a reference to the original one.
+即没有实现复制链表，只是单纯的引用原链表
+
 法1 哈希表unordered_map实现深层拷贝
 执行用时：8 ms, 在所有 C++ 提交中击败了77.83% 的用户
 内存消耗：11.2 MB, 在所有 C++ 提交中击败了24.60% 的用户
