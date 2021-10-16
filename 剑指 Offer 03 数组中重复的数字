@@ -14,5 +14,19 @@ public:
         return {};
     }
 };
+精简版：
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        unordered_map<int, bool> un_map;    //value值设为布尔值更好
+        //int n = nums.size();
+        for(int num : nums)     //实现遍历vector功能
+        {
+            if(un_map[num])   return num;   
+            un_map[num] = true;
+        }
+        return {};
+    }
+};
 
 法2：
