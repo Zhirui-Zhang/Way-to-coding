@@ -5,7 +5,7 @@ class Solution {
 public:
     char firstUniqChar(string s) {
         unordered_map<char, int> un_map;
-        for(char c : s)
+        for(char c : s)     //记住遍历用char c : s!!!
         {
             if(!un_map[c])    un_map[c] = 1;
             else un_map[c]++;
