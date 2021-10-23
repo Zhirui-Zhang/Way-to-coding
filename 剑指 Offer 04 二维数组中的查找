@@ -1,0 +1,30 @@
+法1：逐行二分法，复杂度O(mlogn)
+执行用时：20 ms, 在所有 C++ 提交中击败了79.87% 的用户
+内存消耗：12.6 MB, 在所有 C++ 提交中击败了90.80% 的用户
+class Solution {
+public:
+    bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+        if(matrix.empty())  return false;
+        int left = 0, right = matrix[0].size() - 1, n = matrix[0].size() - 1, m = matrix.size();
+        for(int i = 0; i < m; i++)
+        {
+            left = 0; right = n;
+            while(left <= right)
+            {
+                int mid = (left + right) / 2;
+                if(matrix[i][mid] > target)
+                {
+                    right = mid - 1;
+                }
+                else if(matrix[i][mid] < target)
+                {
+                    left = mid + 1;
+                }
+                else return true;
+            }       
+        }
+        return false;
+    }
+};
+
+法2：
