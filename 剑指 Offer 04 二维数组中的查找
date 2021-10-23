@@ -35,7 +35,8 @@ public:
     bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
         int n = 0, m = matrix.size() - 1;
         while(m >= 0 && n < matrix[0].size())   
-        //这里两句语句是有顺序的，如果反过来写当matrix为[]时访问matrix[0]会发生索引越界异常，而这样写会产生短路效应，有效地避免matrix为空或者为[]的情况！！
+        //这里两句语句是有顺序的，如果反过来写当matrix为[]时访问matrix[0]会发生索引越界异常，而这样写会产生短路效应，有效地避免matrix为[]或者为[[]]的情况！！
+        //注意[]为空，[[]]为一行0列
         {
             if(matrix[m][n] < target)    n++;
             else if(matrix[m][n] > target)    m--;    
