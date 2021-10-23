@@ -1,4 +1,4 @@
-法1：逐行二分法，复杂度O(mlogn)
+法1：逐行二分法，时间复杂度O(mlogn)
 执行用时：20 ms, 在所有 C++ 提交中击败了79.87% 的用户
 内存消耗：12.6 MB, 在所有 C++ 提交中击败了90.80% 的用户
 class Solution {
@@ -27,4 +27,20 @@ public:
     }
 };
 
-法2：
+法2：当成二叉搜索树做，以左下角元素为根节点，上面数小于它，右面数字大于它，时间复杂度O(M+N)
+执行用时：24 ms, 在所有 C++ 提交中击败了44.53% 的用户
+内存消耗：12.7 MB, 在所有 C++ 提交中击败了64.69% 的用户
+class Solution {
+public:
+    bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+        int n = 0, m = matrix.size() - 1;
+        while(m >= 0 && n < matrix[0].size())   
+        //这里两句语句是有顺序的，短路效应，可以有效地避免matrix为空或者为[]的情况！！
+        {
+            if(matrix[m][n] < target)    n++;
+            else if(matrix[m][n] > target)    m--;    
+            else return true;
+        }
+        return false;
+    }
+};
