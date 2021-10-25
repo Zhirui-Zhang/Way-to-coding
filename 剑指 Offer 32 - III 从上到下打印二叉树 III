@@ -96,3 +96,45 @@ public:
         return v;
     }
 };
+
+法3：采用双端队列deque而非queue进行层序遍历，奇数层正向入队，偶数层反向入队
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：12.7 MB, 在所有 C++ 提交中击败了7.93% 的用户
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> v;
+        if(root == NULL)   return v;
+        deque<TreeNode*> q;
+        q.push_back(root);
+        int row = 1;    //当前行数
+        while(!q.empty())
+        {
+            vector<int> temp_v;     //临时存储数组
+            for(int i = q.size(); i > 0; i--)
+            {
+                if(row % 2 == 0)    //偶数行倒序
+                {
+                    TreeNode* temp_q = q.front();   //临时存储节点
+                    temp_v.push_back(temp_q->val);
+                    q.pop_front();
+                    //此时需要先存储右子节点，再左子节点！！！
+                    if(temp_q->right != NULL)   q.push_back(temp_q->right);
+                    if(temp_q->left != NULL)   q.push_back(temp_q->left);
+                    
+                }
+                else    //奇数行正序
+                {
+                    TreeNode* temp_q = q.back();   //临时存储节点
+                    temp_v.push_back(temp_q->val);
+                    q.pop_back();
+                    if(temp_q->left != NULL)   q.push_front(temp_q->left);
+                    if(temp_q->right != NULL)   q.push_front(temp_q->right); 
+                }
+            }
+            v.push_back(temp_v);
+            row++;
+        }
+        return v;
+    }
+};
