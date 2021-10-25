@@ -59,3 +59,40 @@ public:
         return v;
     }
 };
+
+法2：temp_v.reverse()函数
+执行用时：8 ms, 在所有 C++ 提交中击败了28.27% 的用户
+内存消耗：12.1 MB, 在所有 C++ 提交中击败了89.68% 的用户
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> v;
+        if(root == NULL)   return v;
+        queue<TreeNode*> q;
+        q.push(root);
+        int row = 1;    //当前行数
+        while(!q.empty())
+        {
+            vector<int> temp_v;     //临时存储数组
+            for(int i = q.size(); i > 0; i--)
+            {
+                TreeNode* temp_q = q.front();   //临时存储节点
+                temp_v.push_back(temp_q->val);
+                q.pop();
+                if(temp_q->left != NULL)    
+                {
+                    q.push(temp_q->left);
+                }
+                if(temp_q->right != NULL)   
+                {
+                    q.push(temp_q->right);
+                }
+            }
+            //偶数行倒序
+            if(row % 2 == 0)    reverse(temp_v.begin(), temp_v.end());
+            v.push_back(temp_v);
+            row++;
+        }
+        return v;
+    }
+};
