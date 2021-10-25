@@ -106,7 +106,7 @@ public:
         vector<vector<int>> v;
         if(root == NULL)   return v;
         deque<TreeNode*> q;
-        q.push_back(root);
+        q.push_back(root);  //根节点看作第0行，后端入队
         int row = 1;    //当前行数
         while(!q.empty())
         {
