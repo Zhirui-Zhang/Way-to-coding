@@ -115,9 +115,9 @@ public:
             {
                 if(row % 2 == 0)    //偶数行倒序
                 {
-                    TreeNode* temp_q = q.front();   //临时存储节点
+                    TreeNode* temp_q = q.front();   //临时存储front节点
                     temp_v.push_back(temp_q->val);
-                    q.pop_front();
+                    q.pop_front();  //弹出front节点
                     //此时需要先存储右子节点，再左子节点！！！
                     if(temp_q->right != NULL)   q.push_back(temp_q->right);
                     if(temp_q->left != NULL)   q.push_back(temp_q->left);
@@ -125,9 +125,9 @@ public:
                 }
                 else    //奇数行正序
                 {
-                    TreeNode* temp_q = q.back();   //临时存储节点
+                    TreeNode* temp_q = q.back();   //临时存储back节点
                     temp_v.push_back(temp_q->val);
-                    q.pop_back();
+                    q.pop_back();   //弹出back节点
                     if(temp_q->left != NULL)   q.push_front(temp_q->left);
                     if(temp_q->right != NULL)   q.push_front(temp_q->right); 
                 }
