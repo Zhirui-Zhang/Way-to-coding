@@ -7,7 +7,7 @@ public:
         if(!root)   return root;
         TreeNode* res = new(TreeNode);  //这里注意new一块新的内存空间预留给该指针，否则下面赋值部分会报错
         res->val = root->val;
-        if(root->right != NULL)    res->left = mirrorTree(root->right);
+        if(root->right != NULL)    res->left = mirrorTree(root->right);     //其实可以不用判断是否为空的，如果空指针在下一次递归中直接返回了
         if(root->left != NULL)    res->right = mirrorTree(root->left);
         return res;
     }
