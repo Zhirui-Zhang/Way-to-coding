@@ -10,7 +10,7 @@ public:
             cur = max(nums[i], nums[i]+cur);    
             //cur决定是更新历史最大值还是抛弃它，使用新的数组元素作为最大值
             res = max(res, cur);
-            //res其实就是记录cur的历史最大值
+            //res其实就是记录cur的历史最大值，作为最终输出
         }
         return res;
     }
