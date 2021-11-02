@@ -4,10 +4,8 @@
 class Solution {
 public:
     int translateNum(int num) {
-        //int res = 1, a = 0, second = num % 100;     
-        //这里不能直接除100，如果num=506余6的话，会加1，而实际并不能加1
         int a = 1, b = 1, x = 0, y = num % 10;  
-        //x存储十位数字，y存储各位数字，a为结果，b为中间过程
+        //x存储十位数字，y存储个位数字，a为结果，b为中间过程
         while(num != 0)
         {
             num /= 10;
@@ -20,7 +18,7 @@ public:
                 a += b;
                 b = temp_num;
             }
-            y = x;
+            y = x;  //更新个位数字
         }
         return a;
     }
