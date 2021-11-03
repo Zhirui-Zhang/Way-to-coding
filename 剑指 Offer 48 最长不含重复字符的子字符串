@@ -1,0 +1,23 @@
+法1：DP动态遍历法+哈希表
+执行用时：12 ms, 在所有 C++ 提交中击败了71.62% 的用户
+内存消耗：8.1 MB, 在所有 C++ 提交中击败了67.74% 的用户
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.empty())   return 0;
+        unordered_map<char, int> un_map;
+        int res = 0, temp = 0, n = s.size();
+        for(int i = 0; i < n; i++)
+        {
+            char c = s[i];
+            int j;
+            if(un_map.find(c) == un_map.end())    j = -1;
+            else    j = un_map[c];    //查找c上一次出现的位置
+            un_map[c] = i;  //更新哈希表c的位置
+            if(temp >= i - j)    temp = i - j;
+            else    temp++ ;
+            res = max(temp, res);
+        }
+        return res;
+    }
+};
