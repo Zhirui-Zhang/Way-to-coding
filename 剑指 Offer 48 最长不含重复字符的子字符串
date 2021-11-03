@@ -12,7 +12,7 @@ public:
             char c = s[i];
             int j;
             if(un_map.find(c) == un_map.end())    j = -1;
-            else    j = un_map[c];    //查找c上一次出现的位置
+            else    j = un_map[c];    //查找c上一次出现的位置，如果之前不存在，置为-1
             un_map[c] = i;  //更新哈希表c的位置
             if(temp >= i - j)    temp = i - j;
             else    temp++ ;
