@@ -25,6 +25,8 @@ public:
 };
 
 我自己写的最终改进版：其实本质是迭代法+双指针法
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：5.8 MB, 在所有 C++ 提交中击败了80.78% 的用户
 class Solution {
 public:
     int translateNum(int num) {
