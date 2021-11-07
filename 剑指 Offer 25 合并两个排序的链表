@@ -1,0 +1,36 @@
+法1：递归法 想法到位了 但是空间复杂太高 下面有改进版
+执行用时：24 ms, 在所有 C++ 提交中击败了47.14% 的用户
+内存消耗：33.3 MB, 在所有 C++ 提交中击败了5.10% 的用户
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == NULL)  return l2;
+        if(l2 == NULL)  return l1;
+        ListNode *res = new(ListNode);
+        res->val = min(l1->val, l2->val);
+        if(l1->val < l2->val)    res->next = mergeTwoLists(l1->next, l2);
+        else    res->next = mergeTwoLists(l1, l2->next);
+        return res;
+    }
+};
+
+改进版，不需要新建空间存放节点，直接改动原l1或者l2（取决于第一个节点的val值大小）
+执行用时：16 ms, 在所有 C++ 提交中击败了93.84% 的用户
+内存消耗：18.7 MB, 在所有 C++ 提交中击败了58.72% 的用户
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == NULL)  return l2;
+        if(l2 == NULL)  return l1;
+        if(l1->val < l2->val)    
+        {
+            l1->next = mergeTwoLists(l1->next, l2);
+            return l1;
+        }
+        else    
+        {
+            l2->next = mergeTwoLists(l1, l2->next);
+            return l2;
+        }
+    }
+};
