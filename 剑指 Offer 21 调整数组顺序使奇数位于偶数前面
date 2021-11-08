@@ -25,9 +25,10 @@ public:
     }
 };
 
-优化版：
+优化版：一直找，直到pre为偶，cur为奇，swap后各自加减1
 执行用时：12 ms, 在所有 C++ 提交中击败了96.03% 的用户
-内存消耗：17.7 MB, 在所有 C++ 提交中击败了50.56% 的用户class Solution {
+内存消耗：17.7 MB, 在所有 C++ 提交中击败了50.56% 的用户
+class Solution {
 public:
     vector<int> exchange(vector<int>& nums) {
         int pre = 0, cur = nums.size() - 1;
