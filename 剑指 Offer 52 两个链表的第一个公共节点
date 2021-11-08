@@ -1,8 +1,8 @@
 首先注意不可以用反转链表的方法，会报错，改变链表结构，其次注意要判断的是整个对象是否相等，并不只是val值相等？
 
 法1：自己的做法，其实是四指针法，中心思想是让A和B来到同一起跑线再开始遍历
-执行用时：36 ms, 在所有 C++ 提交中击败了90.18% 的用户
-内存消耗：14.2 MB, 在所有 C++ 提交中击败了67.94% 的用户
+执行用时：32 ms, 在所有 C++ 提交中击败了97.84% 的用户
+内存消耗：14.2 MB, 在所有 C++ 提交中击败了76.31% 的用户
 class Solution {
 public: 
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
@@ -19,22 +19,8 @@ public:
             m++;
         }
         int temp = n > m ? n - m : m - n;
-        if(n > m)
-        {
-            while(temp)
-            {
-                pre_A = pre_A->next;
-                temp--;
-            }
-        }
-        else
-        {
-            while(temp)
-            {
-                pre_B = pre_B->next;
-                temp--;
-            }
-        }
+        if(n > m)   while(temp--)    pre_A = pre_A->next;
+        else    while(temp--)   pre_B = pre_B->next;
         while(pre_A != NULL)
         {
             if(pre_A == pre_B)    return pre_A;
