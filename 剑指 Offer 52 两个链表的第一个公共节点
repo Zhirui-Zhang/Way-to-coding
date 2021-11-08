@@ -21,13 +21,13 @@ public:
         int temp = n > m ? n - m : m - n;
         if(n > m)   while(temp--)    pre_A = pre_A->next;
         else    while(temp--)   pre_B = pre_B->next;
-        while(pre_A != NULL)
+        while(pre_A != NULL)    
         {
-            if(pre_A == pre_B)    return pre_A;
+            if(pre_A == pre_B)    return pre_A; //注意这里比较的是pre_A == pre_B即整个对象是否相等
             pre_A = pre_A->next;
             pre_B = pre_B->next;
         }
-        return  NULL;
+        return  NULL;   //最后若无返回空
     }
 };
 
