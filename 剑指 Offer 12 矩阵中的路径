@@ -17,6 +17,7 @@ public:
            aroundExist(board, i, j - 1, word, k + 1) || aroundExist(board, i - 1, j, word, k + 1))
                 return true;
         board[i][j] = word[k];  //无论递归搜索成功与否，将board置为原始值，防止下一次搜索时该值改变了
+        //同时，如果找到完全一样的字符串，一路返回true，不必还原board的值，直接出去就行了
         return false;
     }
     bool exist(vector<vector<char>>& board, string word) {
