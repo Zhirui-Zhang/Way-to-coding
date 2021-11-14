@@ -49,4 +49,39 @@ private:
     vector<pair<int, int>> directions = {{0, 1}, {1, 0}};   //仅仅向右或者向下遍历
 };
 
-法2：DFS深度优先
+法2：DFS深度优先，想明白DFS了就并不难，注意细节例如传入visited数组中注意用引用！！！
+执行用时：4 ms, 在所有 C++ 提交中击败了56.47% 的用户
+内存消耗：6.4 MB, 在所有 C++ 提交中击败了75.69% 的用户
+class Solution {
+public:
+    int DFS(vector<vector<bool>>& visited, int m, int n, int i, int j, int k)
+    {
+        if(i >= m || j >= n || visited[i][j] || sumDigit(i, j) > k)    return 0;    // 注意退出条件！
+        visited[i][j] = true;
+        return 1 + DFS(visited, m, n, i + 1, j, k) + DFS(visited, m, n, i, j + 1, k);
+    }
+    int movingCount(int m, int n, int k) 
+    {
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        int res = 0;
+        res = DFS(visited, m, n, 0, 0, k);
+        return res;
+    }
+
+    // 计算两坐标数位和函数
+    int sumDigit(int i, int j) 
+    {
+        int sum = 0;
+        while (i > 0) 
+        {
+            sum += i % 10;
+            i /= 10;
+        }
+        while (j > 0) 
+        {
+            sum += j % 10;
+            j /= 10;
+        }
+        return sum;
+    }
+};
