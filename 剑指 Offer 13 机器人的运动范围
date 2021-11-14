@@ -4,25 +4,28 @@
 class Solution {
 public:
     int movingCount(int m, int n, int k) {
-        // visited数组判断是否已经访问过，访问过则为真，这里的初始化情况为visited是m行个每个值为n个0的数组
-        vector<vector<bool>> visited(m, vector<bool>(n, 0));
-        // 队列q存放数组对
+        // visited数组判断是否已经访问过，访问过则为真，这里的初始化情况为visited是m行个每行为n个false的数组
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        // 队列q存放数组对，注意用pair存储的话，访问时需要 .first 和 .second
         queue<pair<int, int>> q;
         q.push({0, 0});
         int res = 0;
         visited[0][0] = true;
         while (!q.empty()) {
-            auto front = q.front(); 
+            auto front = q.front();     // 搞不清楚什么类型时用auto!!!实际 front 类型为 pair<int, int>
             q.pop();
             int x = front.first, y = front.second;
             res++;
-            for (auto d : directions) {
+            for (auto d : directions)   // d 也是pair<int, int>，依次为(0,1) 和 (1,0)
+            {
                 int new_x = x + d.first;
                 int new_y = y + d.second;
-                if (new_x < 0 || new_x >= m || new_y < 0 || new_y >= n || visited[new_x][new_y] || sumDigit(new_x, new_y) > k) 
-                    continue;
-                q.push({new_x, new_y});
-                visited[new_x][new_y] = true;
+                //当横纵小于m,n且数位和小于k且数组对未被访问时加入队列并置为真；否则继续循环，
+                if (new_x < m && new_y < n && !visited[new_x][new_y] && sumDigit(new_x, new_y) <= k) 
+                {
+                    q.push({new_x, new_y});
+                    visited[new_x][new_y] = true;
+                } 
             }
         }
         return res;
