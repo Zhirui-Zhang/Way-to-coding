@@ -4,7 +4,7 @@
 class Solution {
 public:
     int movingCount(int m, int n, int k) {
-        // visited数组判断是否已经访问过，访问过则为真
+        // visited数组判断是否已经访问过，访问过则为真，这里的初始化情况为visited是m行个每个值为n个0的数组
         vector<vector<bool>> visited(m, vector<bool>(n, 0));
         // 队列q存放数组对
         queue<pair<int, int>> q;
