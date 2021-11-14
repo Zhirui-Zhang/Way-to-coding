@@ -1,0 +1,49 @@
+法1：BFS广度优先，只考虑向右和向下搜索即可，重点在于如何判断该节点已被访问（利用visited[][]数组）以及如何存放每一个节点对（queue<pair<int, int>> q）
+执行用时：4 ms, 在所有 C++ 提交中击败了56.47% 的用户
+内存消耗：6.5 MB, 在所有 C++ 提交中击败了68.59% 的用户
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        // visited数组判断是否已经访问过，访问过则为真
+        vector<vector<bool>> visited(m, vector<bool>(n, 0));
+        // 队列q存放数组对
+        queue<pair<int, int>> q;
+        q.push({0, 0});
+        int res = 0;
+        visited[0][0] = true;
+        while (!q.empty()) {
+            auto front = q.front(); 
+            q.pop();
+            int x = front.first, y = front.second;
+            res++;
+            for (auto d : directions) {
+                int new_x = x + d.first;
+                int new_y = y + d.second;
+                if (new_x < 0 || new_x >= m || new_y < 0 || new_y >= n || visited[new_x][new_y] || sumDigit(new_x, new_y) > k) 
+                    continue;
+                q.push({new_x, new_y});
+                visited[new_x][new_y] = true;
+            }
+        }
+        return res;
+    }
+    // 计算两坐标数位和函数
+    int sumDigit(int i, int j) {
+        int sum = 0;
+        while (i > 0) 
+        {
+            sum += i % 10;
+            i /= 10;
+        }
+        while (j > 0) 
+        {
+            sum += j % 10;
+            j /= 10;
+        }
+        return sum;
+    }
+private:
+    vector<pair<int, int>> directions = {{0, 1}, {1, 0}};   //仅仅向右或者向下遍历
+};
+
+法2：DFS深度优先
