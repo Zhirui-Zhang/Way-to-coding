@@ -4,7 +4,7 @@
 class Solution {
 public:
     Node* treeToDoublyList(Node* root) {
-        if(root == NULL)     return NULL;
+        if(root == NULL)     return NULL;   //这里如果不对空集特殊情况的话，head->left将会报错
         DFS(root);
         head->left = pre;   //最后注意将首尾节点的指针相连
         pre->right = head;
