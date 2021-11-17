@@ -9,7 +9,7 @@ public:
     }
 private:
     int res;  //res存储结果
-    void DFS(TreeNode* root, int& k)
+    void DFS(TreeNode* root, int& k)    //注意这里是引用，防止k在返回时值发生改变
     {
         if(root == NULL)    return;
         DFS(root->right, k);
@@ -19,3 +19,21 @@ private:
     } 
 };
 
+改进版：当找到节点时提前return返回
+class Solution {
+public:
+    int kthLargest(TreeNode* root, int k) {
+        DFS(root, k);
+        return res;
+    }
+private:
+    int res;
+    void DFS(TreeNode* root, int& k)
+    {
+        if(root == NULL)    return;
+        DFS(root->right, k);
+        if(k == 0)    return;   //当k=0不变时，一路返回原函数
+        if(--k == 0)    res = root->val;    
+        DFS(root->left, k);
+    } 
+};
