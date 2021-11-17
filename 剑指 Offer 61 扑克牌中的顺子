@@ -20,3 +20,24 @@ public:
         return true;  //顺利退出则返回真
     }
 };
+
+改进版：遍历一次即可
+class Solution {
+public:
+    bool isStraight(vector<int>& nums) {  
+        sort(nums.begin(), nums.end());
+        int zero_num = 0;   //统计0的个数
+        for(int i = 0; i < 4; i++)    
+        {
+            if(nums[i] == 0)    
+            {
+                zero_num++;
+                continue;
+            }
+            int temp = nums[i+1] - nums[i];
+            if(temp == 0 || temp > zero_num + 1)    return false;
+            zero_num = zero_num - temp + 1;
+        }
+        return true;
+    }
+};
