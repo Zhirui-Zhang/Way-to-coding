@@ -10,6 +10,8 @@ public:
             temp.push_back(to_string(num));
         }
         sort(temp.begin(), temp.end(), [](string& s1, string& s2){return s1 + s2 < s2 + s1;});  //这里的两个引用&可以省略
+        //或者写成auto compare = [](string s1, string s2){return s1 + s2 < s2 + s1;}
+        //sort(temp.begin(), temp.end(), compare);
         string res;    //最终输出的字符串
         for(auto s : temp)
         {
