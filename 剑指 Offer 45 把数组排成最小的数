@@ -45,14 +45,14 @@ private:
     {
         if(left >= right)    return;
         int i = left, j = right;
-        while(i < j)
+        while(i < j)    //快排模板，判断条件稍微有所调整
         {
             while(temp[j] + temp[left] >= temp[left] + temp[j] && i < j)    j--;
             while(temp[i] + temp[left] <= temp[left] + temp[i] && i < j)    i++;
-            swap(temp[i], temp[j]);
+            swap(temp[i], temp[j]);     //当前面大于pivot，后面小于时，交换i j
         }
-        swap(temp[i], temp[left]);
-        quickSort(temp, left, i - 1);
+        swap(temp[i], temp[left]);  //退出后再交换，将基准换到正确的位置
+        quickSort(temp, left, i - 1);   //分别递归前半部分和后半部分
         quickSort(temp, i + 1, right);
     }
 };
