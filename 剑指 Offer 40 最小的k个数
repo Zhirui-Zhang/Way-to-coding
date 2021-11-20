@@ -40,4 +40,30 @@ private:
     }
 };
 
-法3：
+法3：基于快排的改进方法，快速选择，若一次快排后哨兵位置>k，则递归解决(left, i-1)找到前k个最小的数即可，若哨兵<k，则找(i+1, right)，若等于，直接返回
+时间O(n)   空间O(logn)
+执行用时：28 ms, 在所有 C++ 提交中击败了64.26% 的用户
+内存消耗：18.2 MB, 在所有 C++ 提交中击败了91.48% 的用户
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        quickSort(arr, k, 0, arr.size() - 1);   //参数增加一个k的判断
+        return vector<int> (arr.begin(), arr.begin() + k);
+    }
+private:
+    void quickSort(vector<int>& arr, int k, int left, int right)
+    {
+        if(left >= right)    return;
+        int i = left, j = right;    // 设置哨兵为left即首元素
+        while(i < j)
+        {
+            while(arr[j] >= arr[left] && i < j)   j--;
+            while(arr[i] <= arr[left] && i < j)   i++;
+            swap(arr[i], arr[j]);
+        }
+        swap(arr[i], arr[left]);    //交换后判断哨兵和k的大小关系
+        if(i > k)    quickSort(arr, k, left, i - 1);
+        else if(i < k)    quickSort(arr, k, i + 1, right);
+        else return;
+    }
+};
