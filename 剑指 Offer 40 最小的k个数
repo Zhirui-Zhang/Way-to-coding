@@ -1,4 +1,4 @@
-法1：直接sort函数
+法1：直接sort函数  时间O(nlogn)，空间O(logn)
 执行用时：24 ms, 在所有 C++ 提交中击败了83.22% 的用户
 内存消耗：18.7 MB, 在所有 C++ 提交中击败了48.63% 的用户
 class Solution {
@@ -14,5 +14,30 @@ public:
     }
 };
 
-法2：快速排序法
+法2：快速排序法  时间平均O(nlogn)最坏O(N^2)  空间最好O(logn) 最坏O(n)
+执行用时：44 ms, 在所有 C++ 提交中击败了11.49% 的用户
+内存消耗：18.3 MB, 在所有 C++ 提交中击败了73.71% 的用户
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        quickSort(arr, 0, arr.size() - 1);
+        return vector<int> (arr.begin(), arr.begin() + k);
+    }
+private:
+    void quickSort(vector<int>& arr, int left, int right)
+    {
+        if(left >= right)    return;
+        int i = left, j = right;    // 设置哨兵为left即首元素
+        while(i < j)
+        {
+            while(arr[j] >= arr[left] && i < j)   j--;
+            while(arr[i] <= arr[left] && i < j)   i++;
+            swap(arr[i], arr[j]);
+        }
+        swap(arr[i], arr[left]);
+        quickSort(arr, left, i - 1);
+        quickSort(arr, i + 1, right);
+    }
+};
 
+法3：
