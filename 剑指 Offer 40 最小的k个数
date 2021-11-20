@@ -67,3 +67,31 @@ private:
         else return;
     }
 };
+
+法4：利用大顶堆，即STL中的优先队列priority_queue——默认按降序排列，先存放前k个arr中的数字，随后依次遍历比较，若小于堆顶的数字，则把堆顶（当前最大值）弹出，该数字压入
+时间O(nlogk)  空间O(k)
+执行用时：28 ms, 在所有 C++ 提交中击败了64.26% 的用户
+内存消耗：19.2 MB, 在所有 C++ 提交中击败了21.32% 的用户
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        vector<int> res;
+        if(k == 0)      return res;     //先判断k==0的情况，否则后面q.pop()访问越界
+        priority_queue<int> q;
+        for(int i = 0; i < k; i++)    q.push(arr[i]);   //先存放k个数字
+        for(int i = k; i < arr.size(); i++)     //从k开始遍历，依次比较
+        {   
+            if(arr[i] < q.top())
+            {
+                q.pop();
+                q.push(arr[i]);
+            }
+        }
+        for(int i = 0; i < k; i++)
+        {
+            res.push_back(q.top());
+            q.pop();
+        }
+        return res;
+    }
+};
