@@ -10,8 +10,9 @@ public:
         {
             res.push_back(arr[i]);
         }
-        return res;
+        return res;     //直接return vector<int> (arr.begin(), arr.begin() + k)更好一点
     }
 };
 
-法2：
+法2：快速排序法
+
