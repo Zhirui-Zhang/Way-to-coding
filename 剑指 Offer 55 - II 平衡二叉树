@@ -1,4 +1,5 @@
 法1：DFS+BFS  借助深度函数，层序遍历所有节点，计算左右子树深度差，空间复杂度过高，需要改善
+此时最坏时间O(n^2)平均O(nlogn)  空间O(n)-链表时，递归调用层数为n
 执行用时：8 ms, 在所有 C++ 提交中击败了89.23% 的用户
 内存消耗：20.5 MB, 在所有 C++ 提交中击败了19.21% 的用户
 class Solution {
@@ -22,3 +23,21 @@ public:
         return 1 + max(maxDepth(root->left), maxDepth(root->right));
     }
 };
+
+上面方法改进版：
+执行用时：8 ms, 在所有 C++ 提交中击败了89.23% 的用户
+内存消耗：20.4 MB, 在所有 C++ 提交中击败了59.33% 的用户
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(root == NULL)    return true;
+        return abs(maxDepth(root->left) - maxDepth(root->right)) <= 1 && isBalanced(root->left) && isBalanced(root->right);
+        //只有（根节点+左节点+右节点）均满足高度条件时才返回真
+    }
+    int maxDepth(TreeNode* root) {
+        if(root == NULL)    return 0;
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    }
+};
+
+法2：后序遍历+剪枝法
