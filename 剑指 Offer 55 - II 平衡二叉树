@@ -40,7 +40,7 @@ public:
     }
 };
 
-法2：后序遍历+剪枝法
+法2：后序遍历+剪枝法     核心思想是递归从根节点开始向上遍历，依次计算左右节点的高度，如果相差大于1，返回一个负值（-1只是一个值，没有实际意义），否则依次向上递归
 时间空间复杂度均为O(n)
 执行用时：8 ms, 在所有 C++ 提交中击败了89.23% 的用户
 内存消耗：20.5 MB, 在所有 C++ 提交中击败了23.97% 的用户
@@ -53,7 +53,7 @@ public:
         if(root == NULL)    return 0;
         int leftHeight = dfs(root->left);
         int rightHeight = dfs(root->right);
-        if(leftHeight == -1 || rightHeight == -1 || abs(leftHeight - rightHeight) > 1)    return -1;
-        else    return max(leftHeight, rightHeight) + 1;
+        if(leftHeight == -1 || rightHeight == -1 || abs(leftHeight - rightHeight) > 1)    return -1;    //若相差大于1，返回负值
+        else    return max(leftHeight, rightHeight) + 1;    //计算当前子节点的高度
     }
 };
