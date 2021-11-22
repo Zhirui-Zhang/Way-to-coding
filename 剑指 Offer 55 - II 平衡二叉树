@@ -1,0 +1,24 @@
+法1：DFS+BFS  借助深度函数，层序遍历所有节点，计算左右子树深度差，空间复杂度过高，需要改善
+执行用时：8 ms, 在所有 C++ 提交中击败了89.23% 的用户
+内存消耗：20.5 MB, 在所有 C++ 提交中击败了19.21% 的用户
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(root == NULL)    return true;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            TreeNode* temp = q.front();
+            if(abs(maxDepth(temp->left) - maxDepth(temp->right)) > 1)    return false;
+            q.pop();
+            if(temp->left != NULL)    q.push(temp->left);
+            if(temp->right != NULL)    q.push(temp->right);
+        }
+        return true;
+    }
+    int maxDepth(TreeNode* root) {
+        if(root == NULL)    return 0;
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    }
+};
