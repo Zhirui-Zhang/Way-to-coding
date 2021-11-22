@@ -39,7 +39,7 @@ public:
     }
     void addNum(int num) {
         int n = max_heap.size(), m = min_heap.size();
-        if (n == m)         //n==m意味当前为偶数
+        if (n == m)         //n==m意味当前为偶数，注意无论奇偶都要先插入另一个堆中，排好序后弹出其堆顶放入新堆中
         {
             min_heap.push(num);
             int temp = min_heap.top();
@@ -56,7 +56,8 @@ public:
     }
 
     double findMedian() {
-        int n = max_heap.size(), m = min_heap.size();
+        int n = max_heap.size(), m = min_heap.size();   
+        //若偶数返回大堆顶和小堆顶平均值，为奇数返回大堆顶即为中位数
         return n == m ? (max_heap.top() + min_heap.top())/2.0 : max_heap.top();
     }
 private:
