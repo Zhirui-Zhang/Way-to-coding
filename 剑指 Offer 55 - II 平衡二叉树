@@ -47,7 +47,7 @@ public:
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        return dfs(root) >= 0;
+        return dfs(root) >= 0;  //返回负值说明不是平衡二叉树，否则任意正值都为真
     }
     int dfs(TreeNode* root) {
         if(root == NULL)    return 0;
