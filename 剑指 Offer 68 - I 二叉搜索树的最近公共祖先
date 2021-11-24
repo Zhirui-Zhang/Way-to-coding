@@ -1,0 +1,13 @@
+法1：DFS递归调用，利用二叉搜索树的特性，判断根节点和p q两节点值的大小
+执行用时：28 ms, 在所有 C++ 提交中击败了73.52% 的用户
+内存消耗：22.7 MB, 在所有 C++ 提交中击败了75.80% 的用户
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //若root在p q之间返回root即可
+        if(root == NULL || (root->val >= p->val && root->val <= q->val) || (root->val >= q->val && root->val <= p->val))      return root;
+        //若不在判断在root左子树还是右子树，开始递归
+        if(root->val >= p->val && root->val >= q->val)      return lowestCommonAncestor(root->left, p, q);
+        return lowestCommonAncestor(root->right, p, q);
+    }
+};
