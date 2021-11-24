@@ -1,0 +1,18 @@
+法1：两个递归函数，属实是麻烦了，再好好改进一下
+执行用时：876 ms, 在所有 C++ 提交中击败了5.34% 的用户
+内存消耗：13.8 MB, 在所有 C++ 提交中击败了85.08% 的用户
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == NULL || root == p || root == q)     return root;
+        if((isExist(root->left, p) && isExist(root->right, q)) || (isExist(root->left, q) && isExist(root->right, p)))    return root;
+        if(isExist(root->left, p))    return lowestCommonAncestor(root->left, p, q);
+        else    return lowestCommonAncestor(root->right, p, q);
+    } 
+    bool isExist(TreeNode* a, TreeNode* b)    //该函数的作用是判断a的子树中是否有b
+    {
+        if(a == NULL)    return false;
+        if(a == b || isExist(a->left, b) || isExist(a->right, b))    return true;
+        else return false;
+    }
+};
