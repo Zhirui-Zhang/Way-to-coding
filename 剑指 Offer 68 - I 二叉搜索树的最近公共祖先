@@ -11,3 +11,23 @@ public:
         return lowestCommonAncestor(root->right, p, q);
     }
 };
+
+法2：BFS，迭代法，层序遍历节点，判断与p q的大小关系
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(p->val > q->val)     //可以通过交换p q节点，始终保证p的值小于q
+        {
+            TreeNode* temp = p;
+            p = q;
+            q = temp;
+        }
+        while(root != NULL)
+        {
+            if(root->val < p->val)    root = root->right;
+            if(root->val > q->val)    root = root->left;
+            else    break;
+        }
+        return root;
+    }
+};
