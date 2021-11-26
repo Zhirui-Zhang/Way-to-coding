@@ -16,13 +16,14 @@ public:
 private:
     vector<int> preorder;
     unordered_map<int, int> un_map;
-    TreeNode* recur(int root, int left, int right)
+    TreeNode* recur(int root, int left, int right)  //三个参数分别表示 根节点在前序遍历的索引 root 、子树在中序遍历的左边界 left 、子树在中序遍历的右边界 right
     {
-        if(left > right)    return NULL;
-        TreeNode* temp = new TreeNode(preorder[root]);
-        int i = un_map[preorder[root]];;
+        if(left > right)    return NULL;    //中止递归条件，注意left和right不能相等
+        TreeNode* temp = new TreeNode(preorder[root]);  //构建新节点方式
+        int i = un_map[preorder[root]];     //i记录中序遍历中根节点的所在位置 
+        //接下来进入分治算法，左右子树分别递归，注意每个参数的计算方式
         temp->left = recur(root + 1, left, i - 1);
-        temp->right = recur(root + i - left + 1, i + 1, right);
+        temp->right = recur(root + i - left + 1, i + 1, right);    //右子树的根节点位置计算为 i - left + root + 1，含义为 根节点索引 + 左子树长度 + 1
         return temp;
     }
 };
