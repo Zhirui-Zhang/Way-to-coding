@@ -20,7 +20,7 @@ private:
     {
         if(left > right)    return NULL;    //中止递归条件，注意left和right不能相等
         TreeNode* temp = new TreeNode(preorder[root]);  //构建新节点方式
-        int i = un_map[preorder[root]];     //i记录中序遍历中根节点的所在位置 
+        int i = un_map[preorder[root]];     //i记录中序遍历中根节点的所在位置，i-1为左子树右边界，i+1为右子树左边界
         //接下来进入分治算法，左右子树分别递归，注意每个参数的计算方式
         temp->left = recur(root + 1, left, i - 1);
         temp->right = recur(root + i - left + 1, i + 1, right);    //右子树的根节点位置计算为 i - left + root + 1，含义为 根节点索引 + 左子树长度 + 1
