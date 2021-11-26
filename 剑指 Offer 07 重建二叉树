@@ -1,0 +1,28 @@
+法1：分治+递归调用  时间空间均为O(n)
+执行用时：16 ms, 在所有 C++ 提交中击败了66.25% 的用户
+内存消耗：24.7 MB, 在所有 C++ 提交中击败了67.00% 的用户
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(inorder.empty())     return NULL;    //其实可以不用考虑为空
+        this->preorder = preorder;      //将私用数据成员拷贝为已给定的前序遍历数组
+        for(int i = 0; i < inorder.size(); i++)
+        {
+            un_map[inorder[i]] = i;     //依次给哈希表赋值，key值为节点的val，val值为节点所在位置
+        }
+        return recur(0, 0, inorder.size() - 1);
+    }
+
+private:
+    vector<int> preorder;
+    unordered_map<int, int> un_map;
+    TreeNode* recur(int root, int left, int right)
+    {
+        if(left > right)    return NULL;
+        TreeNode* temp = new TreeNode(preorder[root]);
+        int i = un_map[preorder[root]];;
+        temp->left = recur(root + 1, left, i - 1);
+        temp->right = recur(root + i - left + 1, i + 1, right);
+        return temp;
+    }
+};
