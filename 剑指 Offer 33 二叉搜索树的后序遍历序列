@@ -1,4 +1,4 @@
-法1：递归调用+左右子树分治，自己想出了主要解法，判断递归条件时i的位置出现失误
+法1：递归调用+左右子树分治，自己想出了主要解法，判断递归条件时i的位置出现失误，应使用双指针i j
 时间O(n^2)→递归N乘遍历N  空间O(n)→递归深度
 执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
 内存消耗：6.9 MB, 在所有 C++ 提交中击败了42.51% 的用户
@@ -12,7 +12,7 @@ public:
 private:
     bool isTree(vector<int>& postorder, int left, int right)
     {
-        if(left >= right)    return true; //返回条件
+        if(left >= right)    return true;  //返回条件，没有左子树时j-1<right即left>right，左子树为1时left=right，都为真
         int i = left;
         for(; i < right; i++)
         {
