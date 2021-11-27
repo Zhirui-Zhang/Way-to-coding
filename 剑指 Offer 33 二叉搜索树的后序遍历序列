@@ -26,3 +26,6 @@ private:
         return (i == right) && isTree(postorder, left, j-1) && isTree(postorder, j, right-1); //分治：分别调用左右子树
     }
 };
+
+法2：利用单调栈，反向遍历数组入栈并记录根节点值，想不到，故省略，可以看答案解析尝试理解。
+时间空间复杂度均为O(N)
