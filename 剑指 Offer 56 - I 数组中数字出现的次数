@@ -1,0 +1,27 @@
+法1：异或逐位比较法，不太好想，关键在于找到两数数值不同的位置，并将该数组分为两组，每组仅包含一个只出现一次的数字，其余都出现两次，异或后为0可以不予考虑
+执行用时：8 ms, 在所有 C++ 提交中击败了98.74% 的用户
+内存消耗：15.5 MB, 在所有 C++ 提交中击败了98.12% 的用户
+class Solution {
+public:
+    vector<int> singleNumbers(vector<int>& nums) {
+        vector<int> v;
+        int res = 0;
+        //该代码均以[1 2 10 12 1 12]为例
+        for(auto num : nums)
+        {
+            res ^= num;    //记录遍历一遍后整个数组的异或值，也就是两个只出现一次的数字2 10异或后的值temp = 1000
+        }
+        int temp = 1;         
+        //记录两个数中不同位出现的位置之一，例如2(0010)和10(1010)，异或后为1000，说明两数的第一位不同，temp初始为0001，逐位左移至temp=1000
+        while((res & temp) == 0)    temp <<= 1;
+        int x = 0, y = 0;    //分成两组，一组是第一位为1的，包括y=10^12^12，一组是第一位为0的，包括x=1^2^1
+        for(auto num : nums)
+        {
+            if((num & temp) == 0)    x ^= num;
+            else y ^= num;
+        }
+        v.push_back(x);
+        v.push_back(y);
+        return v;
+    }
+};
