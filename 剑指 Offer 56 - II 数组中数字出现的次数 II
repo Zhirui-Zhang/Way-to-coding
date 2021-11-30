@@ -25,8 +25,29 @@ public:
     }
 };
 
-法2：哈希表，说实话用hashmap太low了，而且复杂度过高，不建议使用
+法2：哈希表，说实话用hashmap太low了，而且空间复杂度过高，不建议使用
 时间O(N)  空间O(N)
-
+执行用时：32 ms, 在所有 C++ 提交中击败了68.93% 的用户
+内存消耗：18.1 MB, 在所有 C++ 提交中击败了18.84% 的用户
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        unordered_map<int, int> un_map;
+        for(auto num : nums)
+        {
+            un_map[num]++;
+        }
+        int res = 0;
+        for(auto unit : un_map)     // 还可以写成for(auto [k, v] : un_map){if(v == 1) res = k;}这种，还可以写成迭代器iter->second
+        {
+            if(unit.second == 1)    
+            {
+                res = unit.first;
+                break;
+            }
+        }
+        return res;
+    }
+};
 
 法3：先sort()排序后遍历，更拉跨，时间O(NlogN)，省略不写
