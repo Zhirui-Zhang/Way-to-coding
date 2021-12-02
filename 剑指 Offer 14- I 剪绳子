@@ -1,0 +1,18 @@
+法1：总结规律法，除n==2 3 4特殊情况外，均符合特殊规律，即形似3*3*3或2*3*3或者3*3*4，判断n%3的值即可
+时间O(N)  空间O(1)  为何结果不尽人意呢？
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：6.1 MB, 在所有 C++ 提交中击败了21.07% 的用户
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if(n == 2)    return 1;
+        if(n == 3)    return 2;
+        if(n == 4)    return 4;
+        int index = n/3;
+        if(n % 3 == 0)    return pow(3, index);
+        if(n % 3 == 1)    return 4*pow(3, index-1);
+        return 2*pow(3, index);
+    }
+};
+
+法2：动态规划DP法
