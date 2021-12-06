@@ -8,11 +8,11 @@ public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         vector<int> res;
         if(matrix.empty() || matrix[0].empty())    return res;
-        int l_row = 0, l_col = 0, r_row = matrix.size() - 1, r_col = matrix[0].size() -1;
-        while(l_row < r_row && l_col < r_col)
+        int l_row = 0, l_col = 0, r_row = matrix.size() - 1, r_col = matrix[0].size() -1;   // 分别为左上和右下两个边界点的坐标值
+        while(l_row < r_row && l_col < r_col)                                               // 循环退出条件，退出时分两种情况讨论
         {
             int i = l_row, j = l_col;
-            for(; j < r_col; j++)    res.push_back(matrix[i][j]);
+            for(; j < r_col; j++)    res.push_back(matrix[i][j]);                           // 四次遍历，每次将对应的边界值-1或者+1
             r_col--;
             for(; i < r_row; i++)    res.push_back(matrix[i][j]);
             r_row--;
@@ -21,11 +21,11 @@ public:
             for(; i > l_row; i--)    res.push_back(matrix[i][j]);
             l_row++;
         }
-        if(r_col == l_col)
+        if(r_col == l_col)                                                                   // 行未遍历完但列值相等
         {
             for(int i = l_row; i <= r_row; i++)    res.push_back(matrix[i][l_col]);
         }
-        else if(r_row == l_row)
+        else if(r_row == l_row)                                                              // 列未遍历完但行值相等
         {
             for(int j = l_col; j <= r_col; j++)    res.push_back(matrix[l_row][j]);
         }   
