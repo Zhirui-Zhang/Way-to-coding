@@ -13,7 +13,7 @@ public:
         while(l_row < r_row && l_col < r_col)                                               // 循环退出条件，退出时分两种情况讨论
         {
             int i = l_row, j = l_col;
-            for(; j < r_col; j++)    res.push_back(matrix[i][j]);                           // 四次遍历，每次将对应的边界值-1或者+1
+            for(; j < r_col; j++)    res.push_back(matrix[i][j]);                           // 四次遍历，每次将对应的边界值-1或者+1，或者放在最后一起+-也可以
             r_col--;
             for(; i < r_row; i++)    res.push_back(matrix[i][j]);
             r_row--;
@@ -33,3 +33,5 @@ public:
         return res;
     }
 };
+
+题解的优化中可以将变量名称设置为 top  bottom  left  right ，核心代码不变，这样便于理解
