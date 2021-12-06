@@ -55,7 +55,7 @@ public:
                 i++;
             }
         }
-        if(s.empty())    return true;                       // 最后循环结束有两种情况，一种是s已经弹空说明顺序全部符合，返回true，否则s不空说明顺序不对，返回false
+        if(s.empty())    return true;                       // 最后循环结束有两种情况，一种是辅助栈s已经弹空说明顺序全部符合，返回true，否则s不空说明顺序不对，返回false
         else return false;
     }
 };
