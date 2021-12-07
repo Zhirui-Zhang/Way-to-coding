@@ -31,3 +31,35 @@ public:
         return negative ? -res : res;                       // 最终输出正or负res
     }
 };
+
+法2：不利用long型，因为可能违反题目规定，增加一个溢出判定，同时优化部分代码，减少了分正负判定的部分，都按照INT_MAX判定即可
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：6.1 MB, 在所有 C++ 提交中击败了88.66% 的用户
+class Solution {
+public:
+    int strToInt(string str) {
+        int index = 0, n = str.size();
+        int res = 0;
+        bool negative = false;
+        while(index < n && str[index] == ' ')    index++;
+        if(str[index] == '+' || str[index] == '-')    
+        {
+            if(str[index] == '-')    negative = true;
+            index++;
+        }
+        for(; index < n; index++)
+        {
+            if(str[index] >= '0' && str[index] <= '9')
+            {
+                int num = str[index] - '0';                                     // Ps:int类型值的范围为[-2147483648, 2147483647]
+                if((res > INT_MAX / 10) || (res == INT_MAX / 10 && num > 7))    // 这里很关键，溢出判定，取消正负分情况判断，当res > 214748364时，直接返回
+                {                                                               // 当 res = 214748364 时判断下一位num大小，若为8or9返回INT_MAX/MIN
+                    return negative ? INT_MIN : INT_MAX;
+                }
+                else res = res * 10 + num;
+            }
+            else break;
+        }
+        return negative ? -res : res;
+    }
+};
