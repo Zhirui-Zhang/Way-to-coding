@@ -1,0 +1,33 @@
+法1：遍历法，注意将res设为long型，以便于后续比较INT_MIN和INT_MAX，如果仍然是int型将发生溢出报错，
+时间O(N)  空间O(1) 
+执行用时：4 ms, 在所有 C++ 提交中击败了66.77% 的用户
+内存消耗：6 MB, 在所有 C++ 提交中击败了92.07% 的用户
+class Solution {
+public:
+    int strToInt(string str) {
+        int index = 0, n = str.size();
+        long res = 0;
+        bool negative = false;        // 记录正负标志位
+        while(index < n && str[index] == ' ')    index++;   // 跳过前面的空格
+        if(str[index] == '+' || str[index] == '-')          // 跳过第一个+-号，且如果是-号，标志位置为true
+        {
+            if(str[index] == '-')    negative = true;
+            index++;
+        }
+        for(; index < n; index++)                           // 依次遍历，如果不是0-9之间的数字，break
+        {
+            if(str[index] >= '0' && str[index] <= '9')
+            {
+                int num = str[index] - '0';                 // 记录当前的数字位，注意写法  str[index] - '0'
+                res = res * 10 + num;
+                if(negative)                                // 判断是否越界
+                {
+                    if(-res < INT_MIN)    return INT_MIN;
+                }
+                else if(res > INT_MAX)    return INT_MAX;
+            }
+            else break;
+        }
+        return negative ? -res : res;                       // 最终输出正or负res
+    }
+};
