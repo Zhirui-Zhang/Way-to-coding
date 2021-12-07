@@ -11,7 +11,7 @@ public:
         for(; index < n; index++)
         {
             if(s[index] >= '0' && s[index] <='9')    numExist = true;     // 如果出现数字，将数字标志位置为true
-            else if(s[index] == 'e' || s[index] == 'E')                   // 如果出现e/E，必须保证前面有数字位，并且后面也是数字位，所以将eExist置为true，其他置为false
+            else if(s[index] == 'e' || s[index] == 'E')                   // 如果出现e/E，必须保证前面有数字位，并且后面也是数字位（且为整数），所以将eExist置为true，其他置为false
             {                                                             // 同时e/E具有唯一性
                 if(numExist == false || eExist == true)    return false;  
                 eExist = true;
@@ -26,13 +26,13 @@ public:
             }
             else if(s[index] == '.')                                        // 如果出现 dot '.'   至少保证前后有一位数字
             {
-                if(dotExist == true || eExist == true)    return false;     // 若已经出现过dot或者e/E，因为dot的唯一性 && e/E的后面不能有dot返回false
+                if(dotExist == true || eExist == true)    return false;     // 若已经出现过dot或者e/E，因为dot的唯一性 && e/E的后面不能有dot，只能为整数，因此返回false
                 dotExist = true;
             }
             else if(s[index] == ' ')    break;                              // 如果出现空格，跳出循环
             else return false;                                              // 如果出现其他符号，返回false
         }
         while(index < n && s[index] == ' ')    index++;                     // 跳过尾部的空格
-        return numExist && index == n;                                      // 最后返回是否存在数字&&数组已经遍历完成
+        return numExist && index == n;                                      // 最后返回是否存在数字&&数组已经遍历完成，若数字位为空或者未遍历完即退出说明该字符串不表示数值
     }
 };
