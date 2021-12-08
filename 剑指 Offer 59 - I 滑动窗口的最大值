@@ -1,4 +1,4 @@
-法1：正常遍历法，啥技巧性操作都没用上，评价还贼高，也不知道为啥是困难题...
+法1：暴力遍历法，啥技巧性操作都没用上，评价还贼高，也不知道为啥是困难题...
 时间O(NK)  空间O(1)
 执行用时：8 ms, 在所有 C++ 提交中击败了99.62% 的用户
 内存消耗：15.3 MB, 在所有 C++ 提交中击败了86.16% 的用户
@@ -28,6 +28,42 @@ public:
                 }
             }
             res.push_back(max);
+        }
+        return res;
+    }
+};
+
+法2：单调队列法，可能原题目的意思是时间复杂度应为O(N)，空间为O(K)，所以需要改进该算法，引入双向队列deque
+执行用时：16 ms, 在所有 C++ 提交中击败了84.49% 的用户
+内存消耗：15.4 MB, 在所有 C++ 提交中击败了75.52% 的用户
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        if(nums.empty())    return res;
+        deque<int> dq;
+        for(int i = 0; i < k; i++)
+        {
+            while(!dq.empty() && nums[i] >= nums[dq.back()])    
+            {
+                dq.pop_back();
+            }
+            dq.push_back(i);
+        }
+        res.push_back(nums[dq.front()]);
+
+        for(int i = k; i < nums.size(); i++)
+        {
+            while(!dq.empty() && nums[i] >= nums[dq.back()])    
+            {
+                dq.pop_back();
+            }
+            dq.push_back(i);
+            while(dq.front() <= i - k)
+            {
+                dq.pop_front();
+            }
+            res.push_back(nums[dq.front()]);
         }
         return res;
     }
