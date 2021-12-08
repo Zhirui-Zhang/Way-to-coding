@@ -64,7 +64,7 @@ public:
             {
                 dq.pop_front();
             }
-            res.push_back(nums[dq.front()]);
+            res.push_back(nums[dq.front()]);                         // 存入这一轮中的最大值 
         }
         return res;
     }
