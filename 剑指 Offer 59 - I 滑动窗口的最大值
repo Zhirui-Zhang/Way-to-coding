@@ -35,6 +35,7 @@ public:
 };
 
 法2：单调队列法，可能原题目的意思是时间复杂度应为O(N)，空间为O(K)，所以需要改进该算法，引入双向队列deque
+※该队列中下标对应的元素是严格单调递减的，队首下标对应的元素就是滑动窗口中的最大值※
 执行用时：16 ms, 在所有 C++ 提交中击败了84.49% 的用户
 内存消耗：15.4 MB, 在所有 C++ 提交中击败了75.52% 的用户
 class Solution {
@@ -42,7 +43,8 @@ public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int> res;
         if(nums.empty())    return res;
-        deque<int> dq;                                              // 注意dq中存放的是当前最大值代表的元素下标而并非元素本身
+        deque<int> dq;                                              
+        // 注意dq中存放的是当前最大值代表的元素下标而并非元素本身，其实可以存入元素本身的，这里抄的一个答案懒得改了，二轮再说吧
         for(int i = 0; i < k; i++)                                  // 第一轮遍历，存入前k个元素中下标最大的值，从尾部插入，保证nums[dq.front()]始终为前k个元素中的最大值
         {
             while(!dq.empty() && nums[i] >= nums[dq.back()])    
@@ -60,7 +62,7 @@ public:
                 dq.pop_back();
             }
             dq.push_back(i);
-            while(dq.front() <= i - k)                               // 这里是重点，判断当前头部的下标值是否需要被淘汰
+            if(dq.front() <= i - k)                                  // 这里是重点，判断当前头部的下标值是否需要被淘汰
             {
                 dq.pop_front();
             }
