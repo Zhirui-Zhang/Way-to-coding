@@ -38,3 +38,10 @@ public:
         return temp;
     }
 };
+
+简化push_back函数：只考虑大于队尾值即可，不用考虑对头！
+void push_back(int value) {
+        q1.push(value); 
+        while(!q2.empty() && q2.back() < value)     q2.pop_back();
+        q2.push_back(value);
+    }
