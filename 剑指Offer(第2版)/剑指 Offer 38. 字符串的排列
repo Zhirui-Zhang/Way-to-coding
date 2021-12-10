@@ -35,7 +35,7 @@ private:
     }
 };
 
-法2：自带函数，几行搞定，具体输出情况略，next_permutation(first, last); next_permutation()会以字典序取得[first,last)所标示之序列的下一个排列组合
+法2：自带函数，几行搞定，具体输出情况略，next_permutation(first, last); next_permutation()返回布尔值，作用是以字典序取得[first,last)所标示之序列的下一个排列组合
 class Solution {
 public:
     vector<string> permutation(string s) {
