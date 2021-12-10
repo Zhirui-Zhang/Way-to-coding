@@ -27,6 +27,7 @@ private:
             if(visited[j] || (j > 0 && !visited[j-1] && s[j-1] == s[j]))    continue;
             // visited[j]=true时表示已经访问过，continue到下一个节点，后面的条件是当节点未遍历且相邻字符不是重复字符时，则将该字符加入排列字符串中，依次递归遍历
             // 这里需要强调的是除非原数组s中有重复的元素，否则(j > 0 && !visited[j-1] && s[j-1] == s[j])永远为false，是否continue只取决于visited[j]，即例[a b c]中只考虑前面即可
+            // 而当用例为[a b b]时，当abb->ab->a后j=2时v[0]=T v[1]=F v[2]=F 从而(j > 0 && !visited[j-1] && s[j-1] == s[j])为true执行continue跳出本次循环进行bab等序列
             visited[j] = true;          // 该字符置为true
             temp.push_back(s[j]);       // 插入到temp中
             dfs(s, i + 1, n, temp);     // 继续递归
