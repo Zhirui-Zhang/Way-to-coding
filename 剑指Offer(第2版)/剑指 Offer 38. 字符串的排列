@@ -1,0 +1,49 @@
+法1：DFS，回溯法，自己想到的和答案还不太一样，我的想法是例f(a b c) -> a+f(b c) -> a+b+f(c) -> a+b+c，但是好像不太适合遍历，二刷的时候再结合答案自己试试？
+答案的是建立了一个visited判断是否已经访问过  时间O(N!N) 全部排列共有N!个，每个排列平均需要O(n)的时间来生成  空间O(N)递归深度
+执行用时：20 ms, 在所有 C++ 提交中击败了80.89% 的用户
+内存消耗：19.9 MB, 在所有 C++ 提交中击败了62.14% 的用户
+class Solution {
+public:
+    vector<string> permutation(string s) {
+        int n = s.size();
+        visited.assign(n, false);
+        sort(s.begin(), s.end());
+        string temp;
+        dfs(s, 0, n, temp);
+        return res;
+    }
+private:
+    vector<string> res;     // 最终返回的字符串型数组
+    vector<bool> visited;   // 记录每个字符是否已经被访问过
+    void dfs(string& s, int i, int n, string& temp)
+    {
+        if(i == n)          // 这里的参数i就是一个记录递归深度的数据，无实际意义，只有当i==n时说明已经凑齐n个字符，可以添加到res中了
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int j = 0; j < n; j++)
+        {
+            if(visited[j] || (j > 0 && !visited[j-1] && s[j-1] == s[j]))    continue;
+            visited[j] = true;
+            temp.push_back(s[j]);
+            dfs(s, i + 1, n, temp);
+            temp.pop_back();
+            visited[j] = false;
+        }
+    }
+};
+
+法2：自带函数，几行搞定，具体输出情况略，next_permutation(first, last); next_permutation()会以字典序取得[first,last)所标示之序列的下一个排列组合
+class Solution {
+public:
+    vector<string> permutation(string s) {
+        sort(s.begin(), s.end());
+        vector<string> res;
+        do{
+            res.emplace_back(s);
+        }while(next_permutation(s.begin(), s.end()));
+
+        return res;
+    }
+};
