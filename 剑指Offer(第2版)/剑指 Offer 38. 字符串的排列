@@ -6,8 +6,8 @@ class Solution {
 public:
     vector<string> permutation(string s) {
         int n = s.size();
-        visited.assign(n, false);
-        sort(s.begin(), s.end());
+        visited.assign(n, false);   // 将visited设置为n个false
+        sort(s.begin(), s.end());   // 使用sort函数对字符串排序，使重复的字符相邻
         string temp;
         dfs(s, 0, n, temp);
         return res;
@@ -25,11 +25,12 @@ private:
         for(int j = 0; j < n; j++)
         {
             if(visited[j] || (j > 0 && !visited[j-1] && s[j-1] == s[j]))    continue;
-            visited[j] = true;
-            temp.push_back(s[j]);
-            dfs(s, i + 1, n, temp);
-            temp.pop_back();
-            visited[j] = false;
+            // visited[j]=true时表示已经访问过，continue到下一个节点，后面的条件是当节点未遍历且相邻字符不是重复字符时，则将该字符加入排列字符串中，依次递归遍历。
+            visited[j] = true;          // 该字符置为true
+            temp.push_back(s[j]);       // 插入到temp中
+            dfs(s, i + 1, n, temp);     // 继续递归
+            temp.pop_back();            // 递归返回后弹出
+            visited[j] = false;         // 将该字符置为false
         }
     }
 };
