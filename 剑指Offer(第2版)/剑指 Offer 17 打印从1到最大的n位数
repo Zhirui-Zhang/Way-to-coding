@@ -27,7 +27,7 @@ public:
         dfs(temp, n, 0);
         return res;
     }
-    string(string& temp, int length, int pos)
+    void dfs(string& temp, int length, int pos)
     {
         if(pos == length)                  // 注意递归退出条件，当前数组位置超过数组长度时，存储当前字符串
         {
