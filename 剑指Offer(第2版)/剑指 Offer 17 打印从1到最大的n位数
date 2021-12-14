@@ -1,0 +1,16 @@
+法1：遍历法，看评论没看懂，本意应该是难一点的，否则是弱智题
+时间O(N)  空间O(1)
+执行用时：8 ms, 在所有 C++ 提交中击败了64.40% 的用户
+内存消耗：11.2 MB, 在所有 C++ 提交中击败了36.87% 的用户
+class Solution {
+public:
+    vector<int> printNumbers(int n) {
+        vector<int> res;
+        int a = pow(10, n);
+        for(int i = 1; i < a; i++)
+        {
+            res.push_back(i);
+        }
+        return res;
+    }
+};
