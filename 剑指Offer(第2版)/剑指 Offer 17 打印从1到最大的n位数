@@ -41,7 +41,7 @@ public:
         }
     }
     
-    string saveNumber(string temp)          // 这个函数的作用仅仅是将temp存储到最终的res字符串中，无需修改temp，因此不需要引用参数
+    void saveNumber(string temp)          // 这个函数的作用仅仅是将temp存储到最终的res字符串中，无需修改temp，因此不需要引用参数
     {
          bool isZero = false;               // 设置布尔量判断前几位是否为零，若为零则不需要加入到字符串中，如"000"完全不加入，"001"前两位不加，"078"，前一位不加
          string s;
@@ -51,7 +51,7 @@ public:
                                             // 当标志位为false且temp当前位不为0时才置为true，当为true时加入到临时字符串s中，故"000"不改变任何值
             if(isZero)    s += temp[i];
          }
-         if(!s.empty())                     // 只有为"000"时，s才为空
+         if(!s.empty())                     // 只有为"000"时，s才为空，此时更新res字符串
          {
             res += s;
          }
