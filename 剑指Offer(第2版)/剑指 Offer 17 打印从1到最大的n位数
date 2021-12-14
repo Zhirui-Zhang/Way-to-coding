@@ -23,7 +23,6 @@ class Solution {
 public:
     string res;
     string printNumbers(int n) {            // 注意我把原题中的vector<int>返回类型改写成了返回string字符串类型！
-        if(n <= 0) return {};               // 特殊情况
         string temp(n, '0')                 // 初始temp字符串为n个'0'，依次修改temp[0]的字符值，例：n = 3， 从 000 到 100 200 到 900 进入递归
         dfs(temp, n, 0);
         return res;
