@@ -38,7 +38,7 @@ public:
         {
             temp[left++] = nums[j++];
         }
-        for(int num = 0; num < length; num++, right--)                // 最后记得更新原nums数组，否则回到上一层递归时未排序，仍为原序列，
+        for(int k = 0; k < length; k++, right--)                    // 最后一定记得更新原nums数组，否则返回上一层递归时未排序，仍为原序列
         {                                                             // 注意这里排序的边界条件，由于此时left i j均发生变化，无法继续使用，改用right倒序复制元素
             nums[right] = temp[right];
         }
