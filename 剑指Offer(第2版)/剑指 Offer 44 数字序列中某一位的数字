@@ -1,0 +1,33 @@
+法1：简单暴力法，先判断出来给出的n对应的是几位数字，然后从第一个数字开始依次比较，知道找到对应的数字后逐位取余，得到最终的数字
+时间O()   空间O(1)
+执行用时：152 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：5.8 MB, 在所有 C++ 提交中击败了66.50% 的用户
+class Solution {
+public:
+    int findNthDigit(int n) {
+        if(n <= 9)    return n;         // 可以省略
+        long i = 1, j = 9;              // 注意需要定义为长整型，否则下面sum += 的部分有可能会溢出
+        long sum = 9;
+        while(n > sum)                  // 用来确定处于几位数，用i表示
+        {
+            i++;
+            j *= 10;
+            sum += i * j;     
+        }
+        int num = j / 9, res = 0;       // num表示i位数从多少开始，即3位数从100开始
+        long left = sum - i * j + 1;    // left表示100中1的位置是190号位置
+        while(left <= n)                // 找到n表示数字的后一位数，之后num--
+        {
+            left += i;
+            num++;
+        }
+        num--;
+        while(left - n != 0)            // 逐位取余，得到表示的数字
+        {
+            res = num % 10;
+            num /= 10;
+            left--;
+        }
+        return res;
+    }
+};
