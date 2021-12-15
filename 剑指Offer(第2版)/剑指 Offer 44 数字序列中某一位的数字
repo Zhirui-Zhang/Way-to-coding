@@ -52,7 +52,7 @@ public:
         long left = sum - i * j + 1;
         int length = n - left;
         num += length / i;                              
-        int digit = i - length % i;                     // 算出n处num的值，为103，digit为从各位开始的第digit位，此处digit = 1，即103的个位数字，算出res即可
+        int digit = i - length % i;                     // 算出n处num的值，为103，digit为从个位开始的第digit位，此处digit = 1，即103的个位数字，算出res即可
         while(digit--)
         {
             res = num % 10;
