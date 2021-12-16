@@ -47,40 +47,6 @@ public:
     }
 };
 
-dp优化版
-执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
-内存消耗：5.8 MB, 在所有 C++ 提交中击败了87.53% 的用户
-时间O(logN)  空间O(1)
-class Solution {
-public:
-    int countDigitOne(int n) {
-        if(n < 10) return 1;
-        long cur = 1;
-        int i = 0, res = 0;
-        while(cur < n)  // 找出 n 的位数
-        {
-            cur *= 10; 
-            ++i;
-        } 
-        if(cur == n)    return i * cur + 1; // n == 10^i, 直接返回
-        cur /= 10;
-        --i;
-        while(cur > 0) 
-        {
-            int t = n / cur;
-            n = n % cur;
-            if(t == 1)    res += i * cur / 10 + n + 1;
-            else    res += t * i * cur / 10 + cur;
-            while(cur > n)          // 将 i 更新为 n 的位数
-            {
-                cur /= 10; 
-                --i;
-            } 
-        }
-        return res;
-    }
-};
-
 法2：找规律，实在不好想，我还是老老实实dp吧
 digit表示当前位数，依次为1 10 100，high为digit之前的数值，low为之后的，cur为个位上的数，如当n=526 digit=10时，high=5 low=6 cur=2
 时间O(logN) 空间O(1)
