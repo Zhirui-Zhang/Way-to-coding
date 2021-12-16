@@ -1,5 +1,5 @@
 法1：DFS 加 DP两种方法结合，DP数组用来存放dp[digit]表示digit位数字共出现多少次1，递归用来计算从digit-1位到n之间增加了多少个1的数量
-时间O(1)最多10位数字  空间O(1)两个数组最多10位，递归深度也是最多为10，可惜空间消耗不太满意，有待改进
+时间O(logN)最多10位数字  空间O(logN)两个数组最多10位，递归深度也是最多为10，可惜空间消耗不太满意，有待改进
 执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
 内存消耗：6.1 MB, 在所有 C++ 提交中击败了7.56% 的用户
 class Solution {
@@ -44,5 +44,70 @@ public:
         {
             return base + num[digit] * dp[digit - 1] + dfs(dp, num, base / 10, digit - 1);  // >1时需100+5*20+10+2*1+1，即分割成0~499+500~519+520~526
         }
+    }
+};
+
+dp优化版
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：5.8 MB, 在所有 C++ 提交中击败了87.53% 的用户
+时间O(logN)  空间O(1)
+class Solution {
+public:
+    int countDigitOne(int n) {
+        if(n < 10) return 1;
+        long cur = 1;
+        int i = 0, res = 0;
+        while(cur < n)  // 找出 n 的位数
+        {
+            cur *= 10; 
+            ++i;
+        } 
+        if(cur == n)    return i * cur + 1; // n == 10^i, 直接返回
+        cur /= 10;
+        --i;
+        while(cur > 0) 
+        {
+            int t = n / cur;
+            n = n % cur;
+            if(t == 1)    res += i * cur / 10 + n + 1;
+            else    res += t * i * cur / 10 + cur;
+            while(cur > n)          // 将 i 更新为 n 的位数
+            {
+                cur /= 10; 
+                --i;
+            } 
+        }
+        return res;
+    }
+};
+
+法2：找规律，实在不好想，我还是老老实实dp吧
+digit表示当前位数，依次为1 10 100，high为digit之前的数值，low为之后的，cur为个位上的数，如当n=526 digit=10时，high=5 low=6 cur=2
+时间O(logN) 空间O(1)
+class Solution {
+public:
+    int countDigitOne(int n) {
+        long digit = 1; // digit 需为 long 型，因为比如 n 是 INT_MAX，digit 会在最后一次循环越界
+        int high = n / 10, cur = n % 10, low = 0;       // 初始high=52 cur=6 low=0 digit=1
+        int res = 0;
+
+        while (high != 0 || cur != 0) {                // 退出迭代条件
+            if (cur == 0) {
+                res += high * digit;
+            }
+            else if (cur == 1) {
+                res += high * digit + low + 1;
+            }
+            else {
+                res += (high + 1) * digit;              // 例 526 中 res = (52+1)*1+(5+1)*10+(0+1)*100
+            }
+
+            low += cur * digit;
+            cur = high % 10;
+            high /= 10;
+            digit *= 10; 
+        }
+
+        return res;
     }
 };
