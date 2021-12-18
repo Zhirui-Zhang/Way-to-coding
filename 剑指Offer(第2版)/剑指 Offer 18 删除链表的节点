@@ -34,7 +34,7 @@ public:
             pre = cur;
             cur = cur->next;
         }
-        if(cur != NULL)     pre->next = cur->next->next;
+        if(cur != NULL)     pre->next = cur->next;
         return head;
     }
 };
