@@ -1,0 +1,34 @@
+法1：类似双指针法，先对两数组进行排序，确保距离最小的值相邻，之后遍历依次记录每个houses和heaters之间的最小值，最后取整个数组的最大值
+时间O(MN)  空间O(N)dp数组占O(N)
+执行用时：60 ms, 在所有 C++ 提交中击败了37.06% 的用户
+内存消耗：25.1 MB, 在所有 C++ 提交中击败了5.08% 的用户
+class Solution {
+public:
+    int findRadius(vector<int>& houses, vector<int>& heaters) {
+        int n = houses.size(), m = heaters.size(), pos = 0, res = 0;
+        sort(houses.begin(), houses.end());
+        sort(heaters.begin(), heaters.end());
+        vector<int> dist(n, INT_MAX);       // dp数组，记录每个每个houses与heaters之间的最小值
+        for(int i = 0; i < n; ++i)
+        {
+            for(int j = pos; j < m; ++j)    // 这里j要从上一次最小的pos开始，减少一部分工作量
+            {
+                int temp = abs(houses[i] - heaters[j]);
+                if(temp <= dist[i])         // 若值小于，更新dist数组，并记录下一次起始位置pos
+                {
+                    dist[i] = temp;
+                    pos = j;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        for(int i = 0; i < n; ++i)          // 取dist数组中的最大值
+        {
+            res = dist[i] > res ? dist[i] : res;
+        }
+        return res;
+    }
+};
