@@ -25,10 +25,6 @@ public:
     while(left <= right)
     {
         int mid = (left + right) / 2;
-        if(nums[mid] == target)
-        {
-            lIndex = mid;
-        }
         if(nums[mid] >= target)
         {
             right = mid - 1;
