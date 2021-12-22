@@ -54,7 +54,8 @@ public:
         for(int cur = 0; cur < n; cur++)
         {
             char c = s[cur];
-            if(un_map.find(c) != un_map.end())  pre = max(pre, un_map[c]);  //注意这里要取max值，保证pre为最邻近的位置，反例 "abba" 当cur=3时，pre=1而un_map[a]=0，若pre取un_map[a]结果为3错误
+            if(un_map.find(c) != un_map.end())  pre = max(pre, un_map[c]);  
+            //注意这里要取max值，保证pre为最邻近的位置，反例 "abba" 当cur=3时，pre=1而un_map[a]=0，若pre取un_map[a]结果为3错误
             un_map[c] = cur;  //更新哈希表c的位置
             res = max(res, cur-pre);
         }
