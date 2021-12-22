@@ -7,7 +7,7 @@ public:
     int add(int a, int b) {
         while(b != 0)
         {
-            int c = (unsigned int)(a & b) << 1;   
+            int c = (unsigned int)(a & b) << 1;   // 这里的C需要设为无符号数，因为当b或a为负数时，C++中负数不支持左移位，其结果是不定的
             a = a ^ b;
             b = c;
         }
