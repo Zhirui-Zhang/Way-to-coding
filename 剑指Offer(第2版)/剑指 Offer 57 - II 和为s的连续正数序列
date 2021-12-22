@@ -6,7 +6,7 @@
 class Solution {
 public:
     vector<vector<int>> findContinuousSequence(int target) {
-        vector<vector<int>> res;    // 结果数组
+        vector<vector<int>> res;    // 结果数组  target至少是3 当target=1or2时res为空
         vector<int> temp;           // 临时数组
         int left = 1, right = 2;    // 注意，这里的两个指针都只加不减，很关键，免得还得回头，太麻烦了
         while(left < right)         // 退出条件，其实这里就是两者都等于target/2 + 1
