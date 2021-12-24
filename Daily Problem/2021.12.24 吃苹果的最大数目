@@ -27,8 +27,8 @@ public:
             }
             if(apple.second > 0)        // 如果当天有剩余苹果，吃掉一个后判断是否这一批是否还有剩余，若有再重新入堆
             {
-                ++res;
-                q.pop();
+                ++res;                  // ※这里很重要，先pop出去修改second的值后再push回来，因为apple=q.top()是一个复制的值，即使修改了也对top()中的值没有影响※
+                q.pop();                // 故if(--apple.second <= 0) q.pop(); 语句是错误的，根本pop不出去
                 apple.second--;
                 if(apple.second > 0)    q.push(apple);
             }
@@ -40,31 +40,29 @@ public:
 
 
 法2：更改为map实现，同样是根据腐烂天数进行内部排序，复杂度不变
+执行用时：116 ms, 在所有 C++ 提交中击败了91.82% 的用户
+内存消耗：55.5 MB, 在所有 C++ 提交中击败了5.45% 的用户
 class Solution {
 public:
     int eatenApples(vector<int>& apples, vector<int>& days) {
-        int ans = 0;
-        int d = 0;
-
-        map<int, int> m; // (expire, cnt)
-
-        while (d < days.size() || !m.empty()) {
-            if (d < days.size()) m[days[d]+d-1] += apples[d];
-            
-            // 尝试从map中取出一个最接近过期但是没有过期的苹果
-            while(!m.empty()) {
-                if (m.begin()->first < d || m.begin()->second == 0) m.erase(m.begin()->first);
-                else {
-                    // 如果找到了 我们就吃掉它
-                    ans++;
-                    // 苹果数要减1
-                    m.begin()->second--;
+        int res = 0, day = 0;
+        map<int, int> m;
+        while(day < days.size() || !m.empty())
+        {
+            if(day < days.size())    m[day+days[day]-1] += apples[day];     // 这里不同，需要记录的是同一天中腐烂掉苹果的总数，因为map中不允许m[2]有两个值存在
+            while(!m.empty())
+            {
+                if(m.begin()->first < day || m.begin()->second == 0)    m.erase(m.begin());     // 如果天数已经大于腐烂的时间或者没有苹果存在，删除第一个值
+                else                                                                            // 否则吃掉一个苹果并将原容器中的数量-1
+                {
+                    ++res;
+                    --m.begin()->second;
                     break;
                 }
             }
-            d++;
+            ++day;
         }
-
-        return ans;
+        
+        return res;
     }
 };
