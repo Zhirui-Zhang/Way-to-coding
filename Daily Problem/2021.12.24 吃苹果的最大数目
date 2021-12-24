@@ -1,0 +1,68 @@
+法1：贪心算法+优先队列，思路完全不对，太自闭了，感觉自己根本不适合刷题，又是怀疑人生的一个上午
+时间O(NlogN)遍历需要N*每次插入堆中排序logN  空间O(N)
+核心思想是存入键值对pair<int,int>  根据即将腐烂天数的日期进行排序，先吃快要腐烂的苹果
+class Solution {
+public:
+    int eatenApples(vector<int>& apples, vector<int>& days) {
+        // 优先队列priority_queue中pair的比较规则：先比较第一个元素，第一个相等比较第二个，等价于map
+        int res = 0, day = 0;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+
+        while(day < days.size() || !q.empty())  // 当天数小于长度或者队列不为空时
+        {
+            if(day < days.size())    q.push(make_pair(day+days[day]-1, apples[day]));   // 如果还在生产苹果，把(过期时间，苹果数量)的pair加入小顶堆
+            auto apple = q.top();
+            while(apple.first < day)    // 如果当天最老的一批苹果要过期了，弹出堆，判断堆是否空，不空选取下一批要过期的苹果，即q.top()
+            {
+                q.pop();
+                if(q.empty())    break;
+                apple = q.top();
+            }
+            if(q.empty())               // 如果堆空了，今天不吃了，等待下一天生产的苹果
+            {
+                ++day;
+                continue;
+            }
+            if(apple.second > 0)        // 如果当天有剩余苹果，吃掉一个后判断是否这一批是否还有剩余，若有再重新入堆
+            {
+                ++res;
+                q.pop();
+                apple.second--;
+                if(apple.second > 0)    q.push(apple);
+            }
+            ++day;
+        }
+        return res;
+    }
+};
+
+
+法2：更改为map实现，同样是根据腐烂天数进行内部排序，复杂度不变
+class Solution {
+public:
+    int eatenApples(vector<int>& apples, vector<int>& days) {
+        int ans = 0;
+        int d = 0;
+
+        map<int, int> m; // (expire, cnt)
+
+        while (d < days.size() || !m.empty()) {
+            if (d < days.size()) m[days[d]+d-1] += apples[d];
+            
+            // 尝试从map中取出一个最接近过期但是没有过期的苹果
+            while(!m.empty()) {
+                if (m.begin()->first < d || m.begin()->second == 0) m.erase(m.begin()->first);
+                else {
+                    // 如果找到了 我们就吃掉它
+                    ans++;
+                    // 苹果数要减1
+                    m.begin()->second--;
+                    break;
+                }
+            }
+            d++;
+        }
+
+        return ans;
+    }
+};
