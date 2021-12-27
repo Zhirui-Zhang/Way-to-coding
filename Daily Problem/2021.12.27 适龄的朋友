@@ -7,7 +7,7 @@ public:
     int numFriendRequests(vector<int>& ages) {
         int res = 0, pre = 0, cur = 0;
         sort(ages.begin(), ages.end());
-        for(auto age : ages)
+        for(auto age : ages)        // age表示截止到age之前存在的发送对数
         {
             if(age < 15)    continue;
             while(ages[pre] <= age/2+7)    pre++;
