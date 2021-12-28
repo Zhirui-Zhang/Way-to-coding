@@ -1,0 +1,61 @@
+法1：遍历法，每次相加时记录是否大于10，若大于时将进位digit=1，否则=0，l1 or l2遍历完后继续复制另一个的节点值，注意最后是否需要+一个1的进位节点
+时间O(N)  空间O(N)空间应该可以优化，改变原来的节点值即可
+执行用时：32 ms, 在所有 C++ 提交中击败了46.13% 的用户
+内存消耗：69.5 MB, 在所有 C++ 提交中击败了30.11% 的用户
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int digit = 0;
+        ListNode* cur = new ListNode(), *head = cur;
+        while(l1 != nullptr && l2 != nullptr)
+        {
+            int temp = l1->val + l2->val + digit;
+            ListNode* node = new ListNode(temp % 10);
+            if(temp > 9)    digit = 1;
+            else digit = 0; 
+            cur->next = node;
+            cur = cur->next;
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+        while(l1 != nullptr)
+        {
+            int temp = l1->val + digit;
+            ListNode* node = new ListNode(temp % 10);
+            if(temp > 9)    digit = 1;
+            else digit = 0; 
+            cur->next = node;
+            cur = cur->next;
+            l1 = l1->next;
+        }
+        while(l2 != nullptr)
+        {
+            int temp = l2->val + digit;
+            ListNode* node = new ListNode(temp % 10);
+            if(temp > 9)    digit = 1;
+            else digit = 0; 
+            cur->next = node;
+            cur = cur->next;
+            l2 = l2->next;
+        }
+        if(digit == 1)
+        {
+            ListNode* node = new ListNode(1);
+            cur->next = node;
+            cur = cur->next;
+        }
+        return head->next;
+    }
+};
+
+优化版：
