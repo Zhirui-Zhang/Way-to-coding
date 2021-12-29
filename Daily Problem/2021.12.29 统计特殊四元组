@@ -1,4 +1,4 @@
-法1：四指针法，只向前不后退，遍历到所有的四元组合后退出
+法1：四指针暴力法，只向前不后退，遍历到所有的四元组合后退出
 时间O(N^4)  空间O(1)
 执行用时：140 ms, 在所有 C++ 提交中击败了40.68% 的用户
 内存消耗：10.2 MB, 在所有 C++ 提交中击败了68.77% 的用户
@@ -22,3 +22,30 @@ public:
     return res;
     }
 };
+
+法2：哈希表法，存储nums[d]，注意c是倒序前进的，从倒数第二个下标向前遍历，直至nums[2]，每次更新nums[c+1]的哈希值，就相当于d了
+时间O(N^3)  空间O(min(n,C))
+执行用时：36 ms, 在所有 C++ 提交中击败了74.80% 的用户
+内存消耗：10.6 MB, 在所有 C++ 提交中击败了22.83% 的用户
+class Solution {
+public:
+    int countQuadruplets(vector<int>& nums) {
+        int n = nums.size();
+        int ans = 0;
+        unordered_map<int, int> un_map;
+        for (int c = n - 2; c >= 2; --c) {
+            ++un_map[nums[c + 1]];
+            for (int a = 0; a < c - 1; ++a) {
+                for (int b = a + 1; b < c; ++b) {
+                    int sum = nums[a] + nums[b] + nums[c];
+                    if (un_map.count(sum)) {
+                        ans += un_map[sum];
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+法3：哈希表进阶，存储nums[d]-nums[c]
