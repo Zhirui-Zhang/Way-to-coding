@@ -1,0 +1,24 @@
+法1：四指针法，只向前不后退，遍历到所有的四元组合后退出
+时间O(N^4)  空间O(1)
+执行用时：140 ms, 在所有 C++ 提交中击败了40.68% 的用户
+内存消耗：10.2 MB, 在所有 C++ 提交中击败了68.77% 的用户
+class Solution {
+public:
+    int countQuadruplets(vector<int>& nums) {
+        int res = 0;
+        for(int a = 0; a < nums.size() - 3; a++)
+        {
+            for(int b = a + 1; b < nums.size() - 2; b++)
+            {
+                for(int c = b + 1; c < nums.size() - 1; c++)
+                {
+                    for(int d = c + 1; d < nums.size(); d++)
+                    {
+                        if(nums[a] + nums[b] + nums[c] == nums[d])    res++;
+                    }
+                }
+            }
+        }
+    return res;
+    }
+};
