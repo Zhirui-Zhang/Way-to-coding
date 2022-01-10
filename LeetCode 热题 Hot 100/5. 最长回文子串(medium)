@@ -71,6 +71,6 @@ private:
             left--;
             right++;
         }
-        return right-left-1;
+        return right-left-1;        // 注意返回值计算方式，指的是right和left之间的所有元素，不包括两侧
     }
 };
