@@ -23,3 +23,5 @@ public:
         return min(res, temp[0]+1440-temp[temp.size()-1]);
     }
 };
+
+优化：增加一句  if(timePoints.size() > 1440)    return 0;  因为最多只有1440个时间节点，如果多于该数字，一定有重复，返回0即可
