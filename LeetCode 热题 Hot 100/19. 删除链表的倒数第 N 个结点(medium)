@@ -1,0 +1,21 @@
+法1：两次遍历，第一次统计节点数，第二次删除并返回，并没有达到题目的要求，再考虑
+时间O(N)  空间O(1)
+执行用时：4 ms, 在所有 C++ 提交中击败了76.92% 的用户
+内存消耗：10.3 MB, 在所有 C++ 提交中击败了81.37% 的用户
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* temp = head;
+        int num = 0;
+        while(temp)
+        {
+            ++num;
+            temp = temp->next;
+        }
+        if(num == n)    return head->next;  // 考虑特殊情况，即删除头节点时需返回head->next
+        temp = head;
+        for(int i = 1; i < num - n; ++i)    temp = temp->next;
+        temp->next =  temp->next->next; 
+        return head;
+    }
+};
