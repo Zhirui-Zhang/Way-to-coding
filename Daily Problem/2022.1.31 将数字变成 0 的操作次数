@@ -16,3 +16,19 @@ public:
         }
     }
 };
+
+法2：迭代法
+时间O(logN)  空间O(N)
+class Solution {
+public:
+    int numberOfSteps(int num) {
+        int res = 0;
+        while(num)
+        {
+            res++;
+            if((num & 1) == 1)    num--;
+            else num >>= 1;
+        }
+        return res;
+    }
+};
