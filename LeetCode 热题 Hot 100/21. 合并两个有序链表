@@ -1,0 +1,39 @@
+法1：遍历模拟法，做过的题，做法略，遍历两个比较即可
+时间O(N) 空间O(1)
+执行用时：8 ms, 在所有 C++ 提交中击败了62.18% 的用户
+内存消耗：14.3 MB, 在所有 C++ 提交中击败了73.29% 的用户
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* cur = new ListNode(0);
+        ListNode* res = cur;    // 用于返回
+        while(list1 && list2)
+        {
+            if(list1->val < list2->val)
+            {
+                cur->next = list1;
+                cur = cur->next;
+                list1 = list1->next;
+            }
+            else
+            {
+                cur->next = list2;
+                cur = cur->next;
+                list2 = list2->next;
+            }
+        }
+        if(list1)   cur->next = list1;    // 连接最后剩余尾部
+        else    cur->next = list2;
+        return res->next;
+    }
+};
