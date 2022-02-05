@@ -1,0 +1,29 @@
+法1：优先队列法，特别简单，遍历一次即可，按照大小顺序排序，随后存入返回的新节点中即可
+时间O(NlogN)  空间O(N) N为lists中所有元素的个数
+执行用时：20 ms, 在所有 C++ 提交中击败了80.09% 的用户
+内存消耗：13.6 MB, 在所有 C++ 提交中击败了20.20% 的用户
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        int n = lists.size();
+        for(int i = 0; i < n; i++)    // 遍历lists，将所有节点存入小顶堆，自动排序
+        {
+            ListNode* temp = lists[i];
+            while(temp)
+            {
+                pq.push(temp->val);
+                temp = temp->next;
+            }
+        }
+        ListNode* pre = new ListNode(0);
+        ListNode* cur = pre;
+        while(!pq.empty())    // 根据小顶堆中的顺序，建立新节点并返回
+        {
+            cur->next = new ListNode(pq.top());
+            pq.pop();
+            cur = cur->next;
+        }
+        return pre->next;
+    }
+};
