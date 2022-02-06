@@ -44,7 +44,7 @@ public:
             if(s[i] == '(')    st.push(i);      // 左括号直接将当前位置i入栈
             else
             {
-                st.pop();                       // 右括号先弹出，然后根据栈是否为空决定入栈还是更新res的值
+                st.pop();                       // 右括号先弹出与其匹配的左括号，然后根据栈是否为空决定入栈还是更新res的值为  i-最后一个没有被匹配的右括号的下标
                 if(st.empty())    st.push(i);
                 else    res = max(res, i - st.top());
             }
