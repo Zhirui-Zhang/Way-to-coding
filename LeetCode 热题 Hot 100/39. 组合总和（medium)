@@ -1,0 +1,33 @@
+法1：回溯法，先对数组排序，然后从上一次的位置开始递归，注意两种不同的返回情况，同时每次回溯后对temp进行弹出
+时间O(NlogN)  空间O(N)
+执行用时：4 ms, 在所有 C++ 提交中击败了91.66% 的用户 
+内存消耗：10.7 MB, 在所有 C++ 提交中击败了64.30% 的用户 
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());     // 先排序，避免回溯时每次还得从头回溯
+        dfs(candidates, 0, target);                     // 当前下标为0
+        return res;
+    }
+private:
+    vector<vector<int>> res;
+    vector<int> temp;
+    void dfs(vector<int>& candidates, int pos, int target)
+    {
+        if(target == 0)             // 目标为0时应存储当前temp数组，然后返回弹出上一个元素
+        {
+            res.push_back(temp);
+            return;
+        }
+        if(target < 0)              // 目标<0时应返回弹出上一个元素
+        {
+            return;
+        }
+        for(int i = pos; i < candidates.size(); ++i)    // 注意从当前位置开始遍历下一次加入的元素值，将其加入temp中，dfs后弹出
+        {
+            temp.push_back(candidates[i]);
+            dfs(candidates, i, target - candidates[i]);
+            temp.pop_back();        // 弹出很重要！！！
+        }
+    }
+};
