@@ -1,11 +1,11 @@
-法1：回溯法，先对数组排序，然后从上一次的位置开始递归，注意两种不同的返回情况，同时每次回溯后对temp进行弹出
+法1：回溯法，每次从上一次的位置开始递归，不要回头，注意两种不同的返回情况，同时每次回溯后对temp进行弹出
+！我第一次先对candidates进行了排序，但其实我的写法并不需要排序，因为是全排列，举出了所有例子，并不需要根据大小进行回溯！
 时间O(NlogN)  空间O(N)
 执行用时：4 ms, 在所有 C++ 提交中击败了91.66% 的用户 
 内存消耗：10.7 MB, 在所有 C++ 提交中击败了64.30% 的用户 
 class Solution {
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end());     // 先排序，避免回溯时每次还得从头回溯
         dfs(candidates, 0, target);                     // 当前下标为0
         return res;
     }
@@ -23,10 +23,10 @@ private:
         {
             return;
         }
-        for(int i = pos; i < candidates.size(); ++i)    // 注意从当前位置开始遍历下一次加入的元素值，将其加入temp中，dfs后弹出
+        for(; pos < candidates.size(); ++pos)    // 注意从当前位置开始遍历下一次加入的元素值，将其加入temp中，dfs后弹出
         {
-            temp.push_back(candidates[i]);
-            dfs(candidates, i, target - candidates[i]);
+            temp.push_back(candidates[pos]);
+            dfs(candidates, pos, target - candidates[pos]);
             temp.pop_back();        // 弹出很重要！！！
         }
     }
