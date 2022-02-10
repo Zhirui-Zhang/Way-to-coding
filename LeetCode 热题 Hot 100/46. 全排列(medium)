@@ -1,0 +1,35 @@
+法1：dfs，注意保存当前数组并弹出，且添加一个判断是否访问过的visited数组
+时间O(N^2)  空间O(N)
+执行用时：4 ms, 在所有 C++ 提交中击败了62.96% 的用户
+内存消耗：7.5 MB, 在所有 C++ 提交中击败了65.94% 的用户
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        vector<bool> visited(n, false);
+        dfs(nums, visited, 0);
+        return res;
+    }
+private:
+    vector<vector<int>> res;
+    vector<int> temp;
+    void dfs(vector<int>& nums, vector<bool>& visited, int num)
+    {
+        if(num == nums.size())
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int i = 0; i < nums.size(); ++i)
+        {
+            if(!visited[i])
+            {
+                temp.push_back(nums[i]);
+                visited[i] = true;
+                dfs(nums, visited, num + 1);
+                temp.pop_back();
+                visited[i] = false;
+            }
+        }
+    }
+};
