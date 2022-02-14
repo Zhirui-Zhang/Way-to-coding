@@ -9,6 +9,7 @@ public:
         vector<vector<int>> res;
         int n = intervals.size();
         sort(intervals.begin(), intervals.end());   // 依据intervals[i][0]的大小进行排序
+     // sort(intervals.begin(), intervals.end(), [](vector<int>& x, vector<int>& y){return x[0] < y[0];});   也可利用lambda表达式精确比较方式
         int start = intervals[0][0], end = intervals[0][1];
         for(int i = 1; i < n; ++i)
         {
