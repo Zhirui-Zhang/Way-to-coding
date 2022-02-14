@@ -16,3 +16,16 @@ public:
         return dp[m-1][n-1];
     }
 };
+
+法2：数学公式法，找规律题，答案了解即可
+时间O(M)  空间O(1)
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        long long ans = 1;
+        for (int x = n, y = 1; y < m; ++x, ++y) {
+            ans = ans * x / y;
+        }
+        return ans;
+    }
+};
