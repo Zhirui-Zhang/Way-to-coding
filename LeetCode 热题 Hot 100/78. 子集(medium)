@@ -1,5 +1,5 @@
 法1：回溯+剪枝法，很简单
-时间O(2^N)  空间O(N)
+时间O(2^N)  空间O(N)temp空间和递归深度均为N
 执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
 内存消耗：6.8 MB, 在所有 C++ 提交中击败了95.77% 的用户
 class Solution {
@@ -21,6 +21,6 @@ private:
             res.push_back(temp);
             dfs(temp, nums, pos + 1);
             temp.pop_back();
-        }
+        }          
     }
 };
