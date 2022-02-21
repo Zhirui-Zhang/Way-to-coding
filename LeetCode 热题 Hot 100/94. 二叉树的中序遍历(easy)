@@ -36,7 +36,7 @@ public:
             if(temp->left)
             {
                 s.push(temp->left);
-                temp->left = nullptr;
+                temp->left = nullptr;       // 若左子树存在，入栈并指向空
             }
             else    
             {
@@ -44,6 +44,26 @@ public:
                 s.pop();
                 if(temp->right)    s.push(temp->right);
             }
+        }
+        return res;
+    }
+};
+
+改进：不用修改原节点的方法，但其实最后root的值也发生了改变，如果不想改变可以在最开始就复制一个root节点
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stk;
+        while (root != nullptr || !stk.empty()) {       // 这个循环条件不太好想，root经常为空，但只有栈也为空时说明已遍历完成，退出
+            while (root != nullptr) {
+                stk.push(root);
+                root = root->left;
+            }
+            root = stk.top();
+            stk.pop();
+            res.push_back(root->val);
+            root = root->right;     // 这里也很重要，每次退出前指向右子树，避免重复回到之前的root节点
         }
         return res;
     }
