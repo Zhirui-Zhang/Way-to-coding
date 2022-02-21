@@ -60,10 +60,10 @@ public:
                 stk.push(root);
                 root = root->left;
             }
-            root = stk.top();
+            root = stk.top();       // 这一步是为当上一步指向的右子树为空时准备的，使其重新回到上一个需要遍历右子树的节点
             stk.pop();
             res.push_back(root->val);
-            root = root->right;     // 这里也很重要，每次退出前指向右子树，避免重复回到之前的root节点
+            root = root->right;     // 这里也很重要，每次退出前指向右子树，哪怕右子树为空，也能避免重复回到之前的root节点
         }
         return res;
     }
