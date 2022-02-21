@@ -68,3 +68,63 @@ public:
         return res;
     }
 };
+
+借机总结一下二叉树三种遍历的迭代写法，大体就是把代码顺序调换一下，后序最后注意要把res反转一下
+1.前序遍历      即  中 -> 左 -> 右
+    vector<int> preorderTraversal(TreeNode* root) 
+    {
+        stack<TreeNode*> s;
+        vector<int> res;
+        while(root || !s.empty())       // 循环条件相同，两者都不空时
+        {
+            while(root)                 // root不空时，先加入右子树，再加入root值，然后指向左子树
+            {
+                if(root->right)    s.push(root->right);
+                res.push_back(rt->val);
+                root=root->left;
+            }
+            root=s.top();               // 令root重新指向栈顶节点并pop出去
+            s.pop();
+        }
+        return v;        
+    }
+
+2.中序遍历          即  左 -> 中 -> 右
+    vector<int> inorderTraversal(TreeNode* root) 
+    {
+        stack<TreeNode*> s;
+        vector<int> res;
+        while(root || !s.empty())      
+        {
+            while(root)              
+            {
+                s.push(root);
+                root=root->left;
+            }
+            root=s.top();           
+            s.pop();
+            res.push_back(rt->val);
+            root = root->right;
+        }
+        return v;        
+    }
+    
+3.后序遍历           即  左 -> 右 -> 中
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        stack<TreeNode*> s;
+        vector<int> res;
+        while(root || !s.empty())      
+        {
+            while(root)              
+            {
+                s.push(root->left);
+                res.push_back(rt->val);
+                root=root->right;
+            }
+            root=s.top();           
+            s.pop();
+        }
+        reverse(v.begin(), v.end());        // 注意最后要将res数组反转后输出
+        return v;        
+    }
