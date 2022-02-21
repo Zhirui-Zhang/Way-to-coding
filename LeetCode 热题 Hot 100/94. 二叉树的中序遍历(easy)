@@ -118,7 +118,7 @@ public:
         {
             while(root)              
             {
-                s.push(root->left);
+                if(root->right)    s.push(root->left);
                 res.push_back(rt->val);
                 root=root->right;
             }
