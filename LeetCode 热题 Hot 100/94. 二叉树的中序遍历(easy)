@@ -69,7 +69,7 @@ public:
     }
 };
 
-借机总结一下二叉树三种遍历的迭代写法，大体就是把代码顺序调换一下，后序最后注意要把res反转一下
+借机总结一下二叉树三种遍历的迭代写法，大体就是把代码顺序调换一下，栈中前序push左子树，中序push根节点，后续push右子树，后序最后注意要把res反转一下
 1.前序遍历      即  中 -> 左 -> 右
     vector<int> preorderTraversal(TreeNode* root) 
     {
@@ -118,7 +118,7 @@ public:
         {
             while(root)              
             {
-                if(root->right)    s.push(root->left);
+                if(root->left)    s.push(root->left);
                 res.push_back(rt->val);
                 root=root->right;
             }
