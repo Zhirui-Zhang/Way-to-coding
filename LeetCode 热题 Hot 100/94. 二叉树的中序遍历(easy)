@@ -80,13 +80,13 @@ public:
             while(root)                 // root不空时，先加入右子树，再加入root值，然后指向左子树
             {
                 if(root->right)    s.push(root->right);
-                res.push_back(rt->val);
+                res.push_back(root->val);
                 root=root->left;
             }
             root=s.top();               // 令root重新指向栈顶节点并pop出去
             s.pop();
         }
-        return v;        
+        return res;        
     }
 
 2.中序遍历          即  左 -> 中 -> 右
@@ -103,10 +103,10 @@ public:
             }
             root=s.top();           
             s.pop();
-            res.push_back(rt->val);
+            res.push_back(root->val);
             root = root->right;
         }
-        return v;        
+        return res;        
     }
     
 3.后序遍历           即  左 -> 右 -> 中
@@ -119,12 +119,12 @@ public:
             while(root)              
             {
                 if(root->left)    s.push(root->left);
-                res.push_back(rt->val);
+                res.push_back(root->val);
                 root=root->right;
             }
             root=s.top();           
             s.pop();
         }
         reverse(v.begin(), v.end());        // 注意最后要将res数组反转后输出
-        return v;        
+        return res;        
     }
