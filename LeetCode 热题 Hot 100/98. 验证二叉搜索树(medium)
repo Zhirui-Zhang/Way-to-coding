@@ -18,4 +18,24 @@ private:
 
 法2：中序遍历，其结果应为递增数组，若不满足说明不是二叉搜索树
 时间O(N)  空间O(N)
-
+执行用时：16 ms, 在所有 C++ 提交中击败了24.48% 的用户
+内存消耗：21.3 MB, 在所有 C++ 提交中击败了16.80% 的用户
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        long temp = LONG_MIN;       // temp用来暂时存储中序遍历数组上一个元素值
+        stack<TreeNode*> s;
+        while (root != nullptr || !s.empty()) {      
+            while (root != nullptr) {
+                s.push(root);
+                root = root->left;
+            }
+            root = s.top();      
+            s.pop();
+            if(root->val <= temp)    return false;
+            temp = root->val;
+            root = root->right;     
+        }
+        return true;
+    }
+};
