@@ -32,8 +32,8 @@ public:
             }
             root = s.top();      
             s.pop();
-            if(root->val <= temp)    return false;
-            temp = root->val;
+            if(root->val <= temp)    return false;      // 如果不满足，说明不是递增数组，返回false
+            temp = root->val;                           // 将temp的值替换成当前root的节点值后root指向右子树
             root = root->right;     
         }
         return true;
