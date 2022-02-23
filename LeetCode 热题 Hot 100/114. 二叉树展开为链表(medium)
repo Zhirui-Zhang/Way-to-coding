@@ -21,8 +21,8 @@ public:
     }
 };
 
-法2：DFS递归法，其实用前序遍历就可以，也可以借助BFS和栈进行交换，只不过题目中进阶要求空间为O(1)
-时间O(N)  空间O(1)
+法2：DFS递归法，其实用前序遍历就可以，只不过题目中进阶要求空间为O(1)
+时间O(N)  空间O(N)
 class Solution {
 public:
     void flatten(TreeNode* root) {
