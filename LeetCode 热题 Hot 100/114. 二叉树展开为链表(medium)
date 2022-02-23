@@ -40,14 +40,14 @@ public:
 
 法3：BFS，借助栈进行一次前序遍历即可，注意设置两个节点，root随便一定，最后再让root等于需要返回的节点
 
-!!!
+！！！
 注意在尝试BFS的时候，每次我借助之前写的前序遍历代码时都会报错，信息为
 Line 171: Char 16: runtime error: reference binding to misaligned address 0xbebebebebebec0b6 for type 'TreeNode *', which requires 8 byte alignment (stl_deque.h)
 0xbebebebebebec0b6: note: pointer points here
 妈的，弄了一下午都不知道为啥会报错，用官方题解一下子就通过了，艹
 更新：
-终于是他妈的弄明白了，整了半天是抄的前序遍历范例有问题，在最后的时候可能发生s为空并访问的情况，所以要提前判断一下是否会为空，ctmd你自己没试试就发题解啊，害老子白忙活一下午
-!!!
+终于是他妈的弄明白了，整了半天是抄的前序遍历模板代码有问题，在最后的时候可能发生s为空并访问的情况，所以要提前判断一下是否会为空，ctmd你自己没试试就发题解啊，害老子白忙活一下午
+！！！
 
 执行用时：12 ms, 在所有 C++ 提交中击败了5.19% 的用户
 内存消耗：12.4 MB, 在所有 C++ 提交中击败了58.51% 的用户
