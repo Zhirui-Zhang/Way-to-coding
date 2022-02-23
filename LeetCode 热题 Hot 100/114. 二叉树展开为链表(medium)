@@ -24,16 +24,16 @@ public:
 法2：DFS递归法，其实用前序遍历就可以，也可以借助BFS和栈进行交换，只不过题目中进阶要求空间为O(1)
 时间O(N)  空间O(1)
 class Solution {
-    void flatten(TreeNode root) {
-        if (root == null) return;
+public:
+    void flatten(TreeNode* root) {
+        if(root==NULL)    return;
         flatten(root->left);
-        TreeNode* temp = root->right;
+        flatten(root->right);
+        TreeNode* temp = root->left;
+        if(temp==NULL)    return;
+        while(temp->right)    temp=temp->right;
+        temp->right = root->right;
         root->right = root->left;
-        root->left = nullptr;
-        while (root->right != null) {
-            root = root->right;
-        }
-        flatten(temp);
-        root->right = temp;
+        root->left = NULL;
     }
-}
+};
