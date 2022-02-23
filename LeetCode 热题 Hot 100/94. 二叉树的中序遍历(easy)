@@ -125,8 +125,11 @@ public:
                 res.push_back(root->val);
                 root=root->right;
             }
-            root=s.top();           
-            s.pop();
+            if(!s.empty())
+            {   
+                root=s.top();           // 后序也是同理，必须判断s是否为空，在最后的左节点出会报错！！！
+                s.pop();
+            }
         }
         reverse(v.begin(), v.end());        // 注意最后要将res数组反转后输出
         return res;        
