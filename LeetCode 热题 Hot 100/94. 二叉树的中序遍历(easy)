@@ -83,8 +83,11 @@ public:
                 res.push_back(root->val);
                 root=root->left;
             }
-            root=s.top();               // 令root重新指向栈顶节点并pop出去
-            s.pop();
+            if(!s.empty())
+            {
+                root=s.top();               // 令root重新指向栈顶节点并pop出去，注意一定要判断s是否为空，因为到最后一个右节点时s已经空了，此时再弹出会报错绑定错误！血与泪的教训啊md
+                s.pop();
+            }
         }
         return res;        
     }
