@@ -1,0 +1,39 @@
+法1：原地修改法，很巧妙，关键是当左子树不为空时，一路遍历直至找到左子树的最右节点，交换两次后将左子树置空，再进行下一轮右子树的循环
+时间O(N)  空间O(1)
+执行用时：4 ms, 在所有 C++ 提交中击败了85.57% 的用户
+内存消耗：12.3 MB, 在所有 C++ 提交中击败了67.20% 的用户
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        while(root)                                           // 当根节点非空时进入循环交换
+        {
+            if(root->left)
+            {
+                TreeNode* temp = root->left;
+                while(temp->right)    temp = temp->right;     // 目的是找到当前根节点下左子树的最右节点，即例中节点4的位置
+                temp->right = root->right;                    // 让4的右节点指向5
+                root->right = root->left;                     // 让1的右节点指向2
+                root->left = nullptr;                         // 让1的左节点指向空
+            }
+            root = root->right;                               // 开始下一轮遍历
+        }
+        return;
+    }
+};
+
+法2：DFS递归法，其实用前序遍历就可以，也可以借助BFS和栈进行交换，只不过题目中进阶要求空间为O(1)
+时间O(N)  空间O(1)
+class Solution {
+    void flatten(TreeNode root) {
+        if (root == null) return;
+        flatten(root->left);
+        TreeNode* temp = root->right;
+        root->right = root->left;
+        root->left = nullptr;
+        while (root->right != null) {
+            root = root->right;
+        }
+        flatten(temp);
+        root->right = temp;
+    }
+}
