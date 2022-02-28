@@ -10,7 +10,7 @@ public:
         for(auto word : wordDict)    un_set.insert(word);
         vector<bool> dp(n+1, false);    // 注意dp数组的长度为n+1，因为s为空时默认返回true
         dp[0] = true;
-        for(int i = 0; i < n + 1; ++i)
+        for(int i = 1; i < n + 1; ++i)
         {
             for(int j = 0; j < i; ++j)  // j的范围从0到i，dp[i]意为从j开始是否能有子串匹配s.substr(j, i-j)
             {
