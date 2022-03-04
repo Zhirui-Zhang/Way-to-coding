@@ -18,7 +18,7 @@ struct LinkedNode
 class LRUCache {
 private:
     unordered_map<int, LinkedNode*> un_map;
-    LinkedNode* head;     // 声明链表中的首尾节点，注意都为哑节点，仅仅为方便元素插入和删除使用
+    LinkedNode* head;     // 声明链表中的首尾节点，注意都为哑节点，仅仅为方便元素插入和删除使用，不用在判断是否存在该节点
     LinkedNode* tail;
     int cur;
     int total;
