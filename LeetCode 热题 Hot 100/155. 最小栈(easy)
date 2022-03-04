@@ -13,8 +13,7 @@ public:
     
     void push(int val) {
         s1.push(val);
-        if(val < s2.top())    s2.push(val);
-        else    s2.push(s2.top());
+        s2.push(min(s2.top(), val));
     }
     
     void pop() {
