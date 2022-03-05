@@ -1,0 +1,64 @@
+法1：归并排序法，但是与通常的归并不同，这次是空间复杂度为O(1)的方法，与数组不同，链表可以直接通过改变指针方向进行排序，因此可以实现O(1)
+时间O(NlogN)  空间O(1)
+执行用时：128 ms, 在所有 C++ 提交中击败了13.19% 的用户
+内存消耗：31.8 MB, 在所有 C++ 提交中击败了57.79% 的用
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        ListNode* dummy = new ListNode(0, head);    // 创建一个哑节点，方便指向
+        ListNode* p = head;
+        int len = 0;    // 用来遍历一轮统计链表长度
+        while(p)
+        {
+            len++;
+            p = p->next;
+        }
+
+        for(int i = 1; i < len; i <<= 1)    // 每次循环时成倍扩展比较
+        {
+            ListNode* cur = dummy->next;
+            ListNode* tail = dummy;   // cur为当前需要比较的节点位置，tail为目前已排序好的尾节点，遍历开始前指向哑节点即可
+            while(cur)
+            {
+                ListNode* left = cur;
+                ListNode* right = cut(left, i);
+                cur = cut(right, i);
+                tail->next = merge(left, right);
+                while(tail->next)    tail = tail->next;    // 比较完一轮后，将尾节点移至下一次比较的位置
+            }
+        }
+        return dummy->next;
+    }
+private:
+    ListNode* cut(ListNode* node, int size)
+    {
+        while(--size && node)    node = node->next;
+        if(!node)    return nullptr;        // 注意这里容易忽略！！！退出循环有两种情况，一种是不够分成size长度，即node为空，返回即可
+        ListNode* temp = node->next;              // 如果是size为0，需要将最后一位置为空后返回前一个节点
+        node->next = nullptr;
+        return temp;
+    }
+
+    ListNode* merge(ListNode* l1, ListNode* l2)     // 合并左右指针环节
+    {
+        ListNode* dummy = new ListNode(0);
+        ListNode* temp = dummy;
+        while(l1 && l2)
+        {
+            if(l1->val < l2->val)   
+            {
+                temp->next = l1;
+                temp = temp->next;
+                l1 = l1->next;
+            }
+            else
+            {
+                temp->next = l2;
+                temp = temp->next;
+                l2 = l2->next; 
+            }
+        }
+        temp->next = l1 ? l1 : l2;
+        return dummy->next;
+    }
+};
