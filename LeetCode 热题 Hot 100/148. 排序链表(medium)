@@ -14,17 +14,17 @@ public:
             p = p->next;
         }
 
-        for(int i = 1; i < len; i <<= 1)    // 每次循环时成倍扩展比较
+        for(int i = 1; i < len; i <<= 1)    // 每次循环时成倍扩展比较，以 4->3->5->2->1 为例  初始size=1
         {
             ListNode* cur = dummy->next;
             ListNode* tail = dummy;   // cur为当前需要比较的节点位置，tail为目前已排序好的尾节点，遍历开始前指向哑节点即可
             while(cur)
             {
-                ListNode* left = cur;
+                ListNode* left = cur;       // left=4->null  right=3->null  cur=5->2->1->null  下一轮left=5->null  right=2->null  cur=1->null 再下一轮left=1->null  right=cur=null
                 ListNode* right = cut(left, i);
                 cur = cut(right, i);
                 tail->next = merge(left, right);
-                while(tail->next)    tail = tail->next;    // 比较完一轮后，将尾节点移至下一次比较的位置
+                while(tail->next)    tail = tail->next;    // 比较完一轮后，将尾节点移至下一次比较的位置  即3->4->null tail在4处
             }
         }
         return dummy->next;
