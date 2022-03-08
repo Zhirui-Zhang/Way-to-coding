@@ -1,5 +1,5 @@
 法1：哈希表，自己做的，就是字典树，每个哈希表存储首字符，后面挂一个vector<string>数组，每次find一边即可
-时间O(NM)N为放入单词的个数，M为每个单词的长度，查找比较时会用到  空间O(N)
+时间O(NM)N为放入单词的个数，M为每个单词的长度，查找比较时会用到  空间O(26*M*N)
 执行用时：120 ms, 在所有 C++ 提交中击败了7.54% 的用户
 内存消耗：24.7 MB, 在所有 C++ 提交中击败了98.29% 的用户
 class Trie {
@@ -38,4 +38,47 @@ public:
 };
 
 法2：字典树/前缀树，和我的解法不太一样，思考一样
-时间O()  空间O()
+时间O(M)M为每次插入的字符串长度，N为插入单词的个数  空间O(26*M*N)
+class Trie {
+private:
+    bool isEnd;
+    Trie* next[26];
+public:
+    Trie() {
+        isEnd = false;
+        memset(next, 0, sizeof(next));
+    }
+    
+    void insert(string word) {
+        Trie* node = this;
+        for (char c : word) {
+            if (node->next[c-'a'] == NULL) {
+                node->next[c-'a'] = new Trie();
+            }
+            node = node->next[c-'a'];
+        }
+        node->isEnd = true;
+    }
+    
+    bool search(string word) {
+        Trie* node = this;
+        for (char c : word) {
+            node = node->next[c - 'a'];
+            if (node == NULL) {
+                return false;
+            }
+        }
+        return node->isEnd;
+    }
+    
+    bool startsWith(string prefix) {
+        Trie* node = this;
+        for (char c : prefix) {
+            node = node->next[c-'a'];
+            if (node == NULL) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
