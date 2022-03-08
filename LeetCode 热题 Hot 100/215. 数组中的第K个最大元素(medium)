@@ -26,4 +26,28 @@ private:
     }
 };
 
-改进版：
+改进版：增加哨兵k，只排前k个元素即可
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        QuickSort(nums, k, 0, n-1);
+        return nums[n-k];
+    }
+private:
+    void QuickSort(vector<int>& nums, int k, int left, int right)
+    {
+        if(left >= right)    return;
+        int i = left, j = right;
+        while(i < j)
+        {
+            while(i < j && nums[left] <= nums[j])    --j;
+            while(i < j && nums[left] >= nums[i])    ++i;
+            swap(nums[i], nums[j]);
+        }
+        swap(nums[i], nums[left]);
+        if(i > k)    QuickSort(arr, k, left, i - 1);
+        else if(i < k)    QuickSort(arr, k, i + 1, right);
+        else return;
+    }
+};
