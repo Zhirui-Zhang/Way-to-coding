@@ -46,7 +46,7 @@ private:
 public:
     Trie() {
         isEnd = false;
-        memset(next, 0, sizeof(next));      // 初始化参数，memset就是把26个指针均置为空（NULL），也可用for(i从0-25)进行置空操作
+        memset(next, 0, sizeof(next));      // 初始化参数，memset就是把26个指针均置为空（NULL），也可用for(int i = 0; i < 26; ++i)  next[i] = NULL;进行置空操作
     }
     
     void insert(string word) {
