@@ -65,10 +65,10 @@ public:
     bool search(string word) {
         Trie* node = this;                  // 回到初始节点，开始遍历
         for (char c : word) {
-            node = node->next[c - 'a'];     // 注意node指向的语句位置，可以与insert中的位置一样，即先判断是否为空，后指向next[i]
-            if (node == NULL) {             // 如果该字符不存在，返回false
+            if (node->next[c - 'a'] == NULL) {
                 return false;
             }
+            node = node->next[c - 'a'];
         }
         return node->isEnd;                 // 注意不是直接返回true，而是判断已有的单词中到此处是否结束，如已有apple搜索app，应返回false
     }
@@ -76,10 +76,10 @@ public:
     bool startsWith(string prefix) {
         Trie* node = this;                  // 如果该字符不存在，返回false
         for (char c : prefix) {
-            node = node->next[c-'a'];           
-            if (node == NULL) {
+            if (node->next[c - 'a'] == NULL) {
                 return false;
             }
+            node = node->next[c - 'a'];
         }
         return true;                        // 寻找前缀则不用考虑是否到此结束，把prefix单词遍历结束后即可返回true
     }
