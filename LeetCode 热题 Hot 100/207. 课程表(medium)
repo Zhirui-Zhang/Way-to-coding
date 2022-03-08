@@ -1,12 +1,12 @@
 法1：DFS，此题DFS比BFS好理解，本质为拓扑排序题，计算每个节点的入度并统计所有边，最后将每个入度为0的节点依次入队，遍历每条边看是否会形成环，如果最后入度为0的节点数=num，说明不存在环，返回true
-时间O(M+N)  空间O(M+N)
+时间O(M+N) n为课程数，m为先修课程数  空间O(M+N) 其中邻接表存储空间为O(M+N)，队列q空间为O(N)
 执行用时：12 ms, 在所有 C++ 提交中击败了98.09% 的用户
 内存消耗：13.7 MB, 在所有 C++ 提交中击败了31.50% 的用户
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<int> indegree(numCourses, 0);        // 记录每个节点的入度，初始为n个0
-        vector<vector<int>> edges(numCourses);      // 用邻接矩阵记录每条边，先初始n个数组，之后遍历时再push_back每条对应边的节点
+        vector<vector<int>> edges(numCourses);      // 用！邻接表（并非邻接矩阵）！记录每条边，先初始n个数组，之后遍历时再push_back每条对应边的节点
 
         for(auto pre : prerequisites)
         {
