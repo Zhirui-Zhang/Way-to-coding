@@ -41,44 +41,44 @@ public:
 时间O(M)M为每次插入的字符串长度，N为插入单词的个数  空间O(26*M*N)
 class Trie {
 private:
-    bool isEnd;
-    Trie* next[26];
+    bool isEnd; 
+    Trie* next[26];     // 前缀树类中包含一个布尔值（表示该单词到此处完结）以及一个包含26个指针的数组
 public:
     Trie() {
         isEnd = false;
-        memset(next, 0, sizeof(next));
+        memset(next, 0, sizeof(next));      // 初始化参数，memset就是把26个指针均置为空（NULL），也可用for(i从0-25)进行置空操作
     }
     
     void insert(string word) {
-        Trie* node = this;
+        Trie* node = this;                  // 回到初始节点，开始遍历
         for (char c : word) {
-            if (node->next[c-'a'] == NULL) {
+            if (node->next[c-'a'] == NULL) {    // 若还不存在当前字符，new出来后把node指向这个字符
                 node->next[c-'a'] = new Trie();
             }
             node = node->next[c-'a'];
         }
-        node->isEnd = true;
+        node->isEnd = true;                 // 最后别忘把最后的字符处设为true，表示这个单词到此结束
     }
     
     bool search(string word) {
-        Trie* node = this;
+        Trie* node = this;                  // 回到初始节点，开始遍历
         for (char c : word) {
             node = node->next[c - 'a'];
-            if (node == NULL) {
+            if (node == NULL) {             // 如果该字符不存在，返回false
                 return false;
             }
         }
-        return node->isEnd;
+        return node->isEnd;                 // 注意不是直接返回true，而是判断已有的单词中到此处是否结束，如已有apple搜索app，应返回false
     }
     
     bool startsWith(string prefix) {
-        Trie* node = this;
+        Trie* node = this;                  // 如果该字符不存在，返回false
         for (char c : prefix) {
-            node = node->next[c-'a'];
+            node = node->next[c-'a'];           
             if (node == NULL) {
                 return false;
             }
         }
-        return true;
+        return true;                        // 寻找前缀则不用考虑是否到此结束，把prefix单词遍历结束后即可返回true
     }
 };
