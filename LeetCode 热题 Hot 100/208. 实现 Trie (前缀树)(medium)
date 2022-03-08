@@ -57,7 +57,7 @@ public:
             if (node->next[c-'a'] == NULL) {    // 若还不存在当前字符，new出来后把node指向这个字符
                 node->next[c-'a'] = new Trie();
             }
-            node = node->next[c-'a'];       // 注意node指向的语句位置，在insert和search两个函数中不同，因为insert时需要判断是否存在，若不存在new出来才能指向，而search需要判断每一个是否存在
+            node = node->next[c-'a'];       
         }
         node->isEnd = true;                 // 最后别忘把最后的字符处设为true，表示这个单词到此结束
     }
@@ -65,7 +65,7 @@ public:
     bool search(string word) {
         Trie* node = this;                  // 回到初始节点，开始遍历
         for (char c : word) {
-            node = node->next[c - 'a'];
+            node = node->next[c - 'a'];     // 注意node指向的语句位置，可以与insert中的位置一样，即先判断是否为空，后指向next[i]
             if (node == NULL) {             // 如果该字符不存在，返回false
                 return false;
             }
