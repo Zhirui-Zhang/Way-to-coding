@@ -57,7 +57,7 @@ public:
             if (node->next[c-'a'] == NULL) {    // 若还不存在当前字符，new出来后把node指向这个字符
                 node->next[c-'a'] = new Trie();
             }
-            node = node->next[c-'a'];
+            node = node->next[c-'a'];       // 注意node指向的语句位置，在insert和search两个函数中不同，因为insert时需要判断是否存在，若不存在new出来才能指向，而search需要判断每一个是否存在
         }
         node->isEnd = true;                 // 最后别忘把最后的字符处设为true，表示这个单词到此结束
     }
