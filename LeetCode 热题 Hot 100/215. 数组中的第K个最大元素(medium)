@@ -27,30 +27,7 @@ private:
 };
 
 改进版：增加哨兵k，只排前k个元素即可
-class Solution {
-public:
-    int findKthLargest(vector<int>& nums, int k) {
-        int n = nums.size();
-        QuickSort(nums, k, 0, n-1);
-        return nums[n-k];
-    }
-private:
-    void QuickSort(vector<int>& nums, int k, int left, int right)
-    {
-        if(left >= right)    return;
-        int i = left, j = right;
-        while(i < j)
-        {
-            while(i < j && nums[left] <= nums[j])    --j;
-            while(i < j && nums[left] >= nums[i])    ++i;
-            swap(nums[i], nums[j]);
-        }
-        swap(nums[i], nums[left]);
-        if(i > k)    QuickSort(nums, k, left, i - 1);
-        else if(i < k)    QuickSort(nums, k, i + 1, right);
-        else return;
-    }
-};
+还需优化
 
 法3：优先队列，小顶堆法，和剑指的那道题还有点小不同，注意一下写法
 时间O(NlogK)  空间O(K)
