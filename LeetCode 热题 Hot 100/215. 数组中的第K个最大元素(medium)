@@ -26,8 +26,39 @@ private:
     }
 };
 
-改进版：增加哨兵k，只排前k个元素即可
-还需优化
+改进版：每次判断返回的右边界情况，若小于index则排右半部分，若大于排左半部分，若等于返回nums[index]即可
+时间O(NlogN)  空间O()
+执行用时：64 ms, 在所有 C++ 提交中击败了18.17% 的用户
+内存消耗：9.8 MB, 在所有 C++ 提交中击败了51.80% 的用户
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        return QuickSelection(nums, 0, n-1, n-k);
+    }
+private:
+    int QuickSelection(vector<int>& nums, int left, int right, int index)
+    {
+        if(left >= right)    return nums[index];
+        int j = partition(nums, left, right);
+        if(j == index)    return nums[index];
+        else if(j < index)    return QuickSelection(nums, j+1, right, index);
+        else    return QuickSelection(nums, left, j-1, index);
+    }
+
+    int partition(vector<int>& nums, int left, int right)       // 划分排序，和之前的快排代码部分相同
+    {
+        int i = left, j = right;
+        while(i < j)
+        {
+            while(i < j && nums[left] <= nums[j])    --j;
+            while(i < j && nums[left] >= nums[i])    ++i;
+            swap(nums[i], nums[j]);
+        }
+        swap(nums[i], nums[left]);
+        return j;
+    }
+};
 
 法3：优先队列，小顶堆法，和剑指的那道题还有点小不同，注意一下写法
 时间O(NlogK)  空间O(K)
