@@ -22,7 +22,7 @@ private:
         }
         swap(nums[i], nums[left]);
         QuickSort(nums, left, i-1);
-        QuickSort(nums, i+1, right);
+        QuickSort(nums, i+1, right);        // 交换到此处时i = j 且保证左侧值都小于nums[i] 右侧值都大于nums[i]，所以不需要在参数中放入i 只用i+1 i-1即可
     }
 };
 
@@ -56,7 +56,7 @@ private:
             swap(nums[i], nums[j]);
         }
         swap(nums[i], nums[left]);
-        return j;
+        return j;                   // 其实这里return i 还是 j 都是一样的，因为到交换到此处时i = j 且保证左侧值都小于nums[i] 右侧值都大于nums[i]
     }
 };
 
