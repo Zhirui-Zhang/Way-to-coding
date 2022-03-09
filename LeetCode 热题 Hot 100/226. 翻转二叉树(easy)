@@ -26,3 +26,5 @@ public:
         return root;
     }
 };
+
+法2：BFS略
