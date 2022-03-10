@@ -1,4 +1,5 @@
 法1：双指针法。单纯为应付空间O(1)设计的，借鉴反转链表的思想，根据奇偶判断应从何处反转链表，并将原链表一半处置空，最后依次遍历比较即可
+官方题解中把反转链表包装起来，最后还把原链表还原了，可以学习一下
 时间O(N)  空间O(1)
 执行用时：180 ms, 在所有 C++ 提交中击败了72.06% 的用户
 内存消耗：111.3 MB, 在所有 C++ 提交中击败了86.77% 的用户
@@ -43,3 +44,27 @@ public:
 法2：用栈比较好理解，统计一遍个数后，将前一半入栈，随后与后一半依次比较并出栈
 时间O(N)  空间O(N)
 代码略
+
+法3：递归法，不太好理解，将head递归至最后一个节点后返回比较
+时间O(N)  空间O(N)
+class Solution {
+    ListNode* frontPointer;
+public:
+    bool recursivelyCheck(ListNode* currentNode) {
+        if (currentNode != nullptr) {
+            if (!recursivelyCheck(currentNode->next)) {
+                return false;
+            }
+            if (currentNode->val != frontPointer->val) {
+                return false;
+            }
+            frontPointer = frontPointer->next;
+        }
+        return true;
+    }
+
+    bool isPalindrome(ListNode* head) {
+        frontPointer = head;
+        return recursivelyCheck(head);
+    }
+};
