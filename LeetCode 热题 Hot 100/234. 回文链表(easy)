@@ -18,7 +18,7 @@ public:
         int half = num % 2 ? (num+1)/2 : num/2;   // 注意half算法，如果为1->2->3->2->1应到3  如果1->2->2->1应到第一个2
         while(--half)    cur = cur->next;
         ListNode* tail = cur;                     // 注意把3之后置空，或者第一个2之后置空，防止变成野指针
-        cur = cur->next;
+        cur = cur->next;                          // 但其实不置空也行，凑合着用呗
         tail->next = nullptr;
 
         ListNode* pre = nullptr;                  // 反转链表经典操作
@@ -45,7 +45,7 @@ public:
 时间O(N)  空间O(N)
 代码略
 
-法3：递归法，不太好理解，将head递归至最后一个节点后返回比较
+法3：递归法，不太好理解，将head递归至最后一个节点后返回比较，但是这个题解其实正反比较了两遍，我觉得有点麻烦
 时间O(N)  空间O(N)
 class Solution {
     ListNode* frontPointer;
