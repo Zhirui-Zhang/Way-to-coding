@@ -1,0 +1,18 @@
+法1：二叉树模拟法，做过的题，不记得二分法咋做了，只记得这个秒解
+时间O(M+N)  空间O(1)
+执行用时：92 ms, 在所有 C++ 提交中击败了76.16% 的用户
+内存消耗：14.4 MB, 在所有 C++ 提交中击败了69.01% 的用户
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size(), n = matrix[0].size();
+        int i = m - 1, j = 0;
+        while(i >= 0 && j < n)
+        {
+            if(matrix[i][j] == target)    return true;
+            else if(matrix[i][j] < target)    j++;
+            else    i--;
+        }
+        return false;
+    }
+};
