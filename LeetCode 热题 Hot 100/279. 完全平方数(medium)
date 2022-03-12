@@ -30,12 +30,13 @@ public:
     }
 };
 
-法2：DP法，统计每个值对应的个数，每一轮结束后+1，返回dp[n]即可
+法2：DP法，统计每个值对应的个数，每次更新自身和前一个平方和+1的数，返回dp[n]即可
 时间O(N根号N)  空间O(N)
-
+执行用时：196 ms, 在所有 C++ 提交中击败了26.90% 的用户
+内存消耗：8.8 MB, 在所有 C++ 提交中击败了62.19% 的用户
 int numSquares(int n)
 {
-    vector<int> dp(n+1, INT_MAX); // 每个数的最优解都存在result数组里
+    vector<int> dp(n+1, INT_MAX); // 每个数的最优解都存在dp数组里
     dp[0] = 0;
     for (int i = 1; i <= n; i++){
         for(int j = 1; i-j*j >= 0 ; j++) {  // 观察比N小的数，且符合N = IxI + N'的数值
