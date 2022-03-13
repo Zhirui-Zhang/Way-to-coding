@@ -21,5 +21,27 @@ public:
     }
 };
 
-法2：快慢指针法，类似于之前的环形链表
+法2：快慢指针法，类似于之前的环形链表，以数组的值作为下一次的下标，先让两个指针走，相遇时让slow退回到0，再一起走直到相遇时退出
+执行用时：72 ms, 在所有 C++ 提交中击败了97.35% 的用户
+内存消耗：59.8 MB, 在所有 C++ 提交中击败了57.34% 的用户
 时间O(N)  空间O(1)
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int fast = 0, slow = 0;
+        while(true)
+        {
+            fast = nums[nums[fast]];
+            slow = nums[slow];
+            if(slow == fast)    break;
+        }
+        slow = 0;
+        while(true)
+        {
+            slow = nums[slow];
+            fast = nums[fast];
+            if(slow == fast)    break; 
+        }
+        return slow;
+    }
+};
