@@ -18,3 +18,28 @@ public:
         return res;
     }
 };
+
+法2：DP+二分查找，实在是不太好想，例题详见笔记题解，dp数组记录的是当前最长递增子序列i的元素下标
+时间O(NlogN)  空间O(N)
+执行用时：12 ms, 在所有 C++ 提交中击败了73.94% 的用户
+内存消耗：10.1 MB, 在所有 C++ 提交中击败了87.47% 的用户
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int res = 0, n = nums.size();
+        vector<int> dp(n, 0);       // 这里初始化值任意，只是为了占位
+        for(auto num : nums)
+        {
+            int i = 0, j = res;     // 令左边界为0，右边界为当前最大长度值
+            while(i < j)
+            {
+                int mid = (i + j) / 2;  // 二分查找最适合num的位置，即num大了往右查，小了往左查
+                if(dp[mid] < num)    i = mid + 1;       // 注意二分边界范围，其实就是算法lower_bound()的思想
+                else    j = mid;
+            }
+            dp[j] = num;                // 对找到的合适位置j处放置num
+            if(res == j)    res++;      // 判断当前是否为最大值并更新res
+        }
+        return res;
+    }
+};
