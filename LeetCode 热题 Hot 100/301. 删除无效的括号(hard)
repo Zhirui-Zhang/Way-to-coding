@@ -13,7 +13,7 @@ public:
                     right++;
                 }
                 else{
-                    left--;              // 结束后l=0 r=1说明右括号多了一个，需要删除，进入dfs函数
+                    left--;              // 以例"()())()"说明，结束后l=0 r=1说明右括号多了一个，需要删除，递归进入dfs函数
                 }
             }
         }
@@ -29,27 +29,28 @@ public:
 private:
     unordered_set<string> un_set;           // un_set用来删除重复字符串，保留重复中的唯一一个后输出到res中
     string temp;
-    void dfs(string& s, int i, int left, int right, int lcnt, int rcnt){
+    void dfs(string& s, int i, int left, int right, int lcnt, int rcnt){    
+    // i为下标，left right表示剩余需要删除的左/右括号数量，lcnt rcnt分别表示当前temp中已有的左右括号数量，用来判断目前左右括号数量是否匹配
         if(i == s.size()){
-            if(left == 0 && right == 0)    un_set.insert(temp);
+            if(lcnt == rcnt)    un_set.insert(temp);     // 只有当下标满足条件且左右括号数量匹配时，进行保存
             return;
         }
-        if(s[i] == '(' && left > 0){
+        if(s[i] == '(' && left > 0){                     // 当需要删除的左括号>0时，删除并递归，注意不管怎样，每次递归下标i都要记得+1
             dfs(s, i+1, left-1, right, lcnt, rcnt);
         }
         if(s[i] == ')' && right > 0){
-            dfs(s, i+1, left, right-1, lcnt, rcnt);
+            dfs(s, i+1, left, right-1, lcnt, rcnt);      // 同理，当需要删除的右括号>0时，删除并递归
         }
 
-        temp += s[i];
+        temp += s[i];                                    // 暂时存入s[i]
 
-        if(s[i] >= 'a' && s[i] <= 'z'){
+        if(s[i] >= 'a' && s[i] <= 'z'){                  // 当s[i]为字母时，不用动，只把下标+1即可
             dfs(s, i+1, left, right, lcnt, rcnt);
         }
-        else if(s[i] == '('){
+        else if(s[i] == '('){                            // 当s[i]为左括号时，令lcnt+1
             dfs(s, i+1, left, right, lcnt+1, rcnt);
         }
-        else if(rcnt < lcnt){
+        else if(rcnt < lcnt){                            // 注意并非当s[i]为要右括号就rcnt+1，而是判断当前右括号数是否小于左括号数，若小于，rcnt+1
             dfs(s, i+1, left, right, lcnt, rcnt+1);
         }
 
