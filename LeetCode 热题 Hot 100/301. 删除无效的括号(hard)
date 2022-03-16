@@ -1,0 +1,58 @@
+法1：DFS，很复杂的一道题，细节很多，二刷的时候再好好回顾一遍吧
+时间O(2^N)  空间O(N)
+执行用时：116 ms, 在所有 C++ 提交中击败了22.08% 的用户
+内存消耗：8.7 MB, 在所有 C++ 提交中击败了51.23% 的用户
+class Solution {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        int left = 0, right = 0;        // 分别表示需要删除的左括号数量和右括号数量
+        for(auto c : s){                // 遍历s，若为左括号，l++，若为右括号，根据当前是否存在左括号决定是否r++
+            if(c == '(')    left++;
+            else if(c == ')'){
+                if(left == 0){
+                    right++;
+                }
+                else{
+                    left--;              // 结束后l=0 r=1说明右括号多了一个，需要删除，进入dfs函数
+                }
+            }
+        }
+
+        dfs(s, 0, left, right, 0, 0);
+
+        vector<string> res;               // 将不重复的字符串输入到res中
+        for(auto un : un_set){
+            res.push_back(un);
+        }
+        return res;
+    }
+private:
+    unordered_set<string> un_set;           // un_set用来删除重复字符串，保留重复中的唯一一个后输出到res中
+    string temp;
+    void dfs(string& s, int i, int left, int right, int lcnt, int rcnt){
+        if(i == s.size()){
+            if(left == 0 && right == 0)    un_set.insert(temp);
+            return;
+        }
+        if(s[i] == '(' && left > 0){
+            dfs(s, i+1, left-1, right, lcnt, rcnt);
+        }
+        if(s[i] == ')' && right > 0){
+            dfs(s, i+1, left, right-1, lcnt, rcnt);
+        }
+
+        temp += s[i];
+
+        if(s[i] >= 'a' && s[i] <= 'z'){
+            dfs(s, i+1, left, right, lcnt, rcnt);
+        }
+        else if(s[i] == '('){
+            dfs(s, i+1, left, right, lcnt+1, rcnt);
+        }
+        else if(rcnt < lcnt){
+            dfs(s, i+1, left, right, lcnt, rcnt+1);
+        }
+
+        temp.pop_back();
+    }
+};
