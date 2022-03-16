@@ -50,7 +50,7 @@ private:
         else if(s[i] == '('){                            // 当s[i]为左括号时，令lcnt+1
             dfs(s, i+1, left, right, lcnt+1, rcnt);
         }
-        else if(rcnt < lcnt){                            // 注意并非当s[i]为要右括号就rcnt+1，而是判断当前右括号数是否小于左括号数，若小于，rcnt+1
+        else if(rcnt < lcnt){                            // 注意并非当s[i]为要右括号就rcnt+1，因为可能出现"()())("的情况，而是应该判断当前右括号数是否小于左括号数，若小于，rcnt+1
             dfs(s, i+1, left, right, lcnt, rcnt+1);
         }
 
