@@ -14,6 +14,6 @@ public:
                 }
             }
         }
-        return dp[amount] == amount+1 ? -1 : dp[amount];
+        return dp[amount] == amount+1 ? -1 : dp[amount];    // 注意最后返回值若为amount+1说明无法构成该面额，返回-1
     }
 };
