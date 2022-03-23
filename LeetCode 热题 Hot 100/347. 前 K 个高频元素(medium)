@@ -59,4 +59,11 @@ private:
         return x.second > y.second;
     }
 };
+
+定义时还可以写成类的形式，然后重载小括号运算符，直接传入q的第三个参数即可
+struct cmp
+{
+    bool operator()(pair<int, int>& a, pair<int, int>& b){ return a.second > b.second; }
 };
+之后
+priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> q;
