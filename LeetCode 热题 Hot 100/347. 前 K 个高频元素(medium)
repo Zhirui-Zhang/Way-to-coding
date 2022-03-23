@@ -1,0 +1,24 @@
+法1：哈希+快排法，自我感觉复杂度不满足要求，结果还挺好，期待优化方案
+时间最坏O(NlogN)为每个元素只出现一次，此时K=N，在第一句特殊情况中已考虑  空间O(N)
+执行用时：4 ms, 在所有 C++ 提交中击败了99.85% 的用户
+内存消耗：13.3 MB, 在所有 C++ 提交中击败了65.10% 的用户
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        if(k == nums.size())    return nums;
+        vector<int> res;
+        unordered_map<int, int> un_map;   // 哈希表记录每个数组出现的次数
+        for(auto num : nums){
+            un_map[num]++;
+        }
+        vector<pair<int, int>> temp;      // temp里面存放哈希表中的数值对
+        for(auto [k, v] : un_map){
+            temp.push_back({k, v});
+        }
+        sort(temp.begin(), temp.end(), [](auto x, auto y){return x.second > y.second;});  // 按照出现次数排序
+        for(int i = 0; i < k; ++i){       // 放入频率最高的前K个元素
+            res.push_back(temp[i].first);
+        }
+        return res;
+    }
+};
