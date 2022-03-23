@@ -22,3 +22,41 @@ public:
         return res;
     }
 };
+
+法2：小顶堆，优先队列法，其实就是TopK问题的小顶堆，只不过堆里面存放的是pair类型，注意下比较方式即可，重点注意queue的写法以及cmp为static类型！！！
+时间O(NlogK)  空间O(N)
+执行用时：16 ms, 在所有 C++ 提交中击败了45.49% 的用户
+内存消耗：13.4 MB, 在所有 C++ 提交中击败了34.60% 的用户
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> res;
+        unordered_map<int, int> un_map;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(&cmp)> q(cmp);      // 注意写法！！！
+        for(auto num : nums){
+            un_map[num]++;
+        }
+        for(auto [key, val] : un_map){
+            if(q.size() == k){
+                if(q.top().second < val){
+                    q.pop();
+                    q.push({key, val});
+                }
+            }
+            else{
+                q.push({key, val});
+            }
+        }
+        while(!q.empty()){
+            res.push_back(q.top().first);
+            q.pop();
+        }
+        return res;
+    }
+
+private:
+    static bool cmp(pair<int, int>& x, pair<int, int>& y){
+        return x.second > y.second;
+    }
+};
+};
