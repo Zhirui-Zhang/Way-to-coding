@@ -1,0 +1,28 @@
+法1：贪心+排序法，注意这种类型题，如果出现两个需要排序的维度，一般都是一个正排一个反排，然后根据排序后的下标依次插入即可
+时间O()  空间O()
+执行用时：144 ms, 在所有 C++ 提交中击败了41.85% 的用户
+内存消耗：12.3 MB, 在所有 C++ 提交中击败了39.96% 的用户
+class Solution {
+public:
+    static bool cmp(vector<int>& x, vector<int>& y){      // 注意lambda表达式一定是返回static类型，否则编译不通过！！！
+        if(x[0] == y[0]){                                 // 第一个维度反排，第二个维度正排
+            return x[1] < y[1];
+        }
+        else{
+            return x[0] > y[0];
+        }
+    }
+
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+        vector<vector<int>> res;
+        sort(people.begin(), people.end(), cmp);
+        for(auto p : people){
+            res.insert(res.begin()+p[1], p);              
+            // 这里非常巧妙，根据第二个维度k确定插入的位置，因为前面的k个元素一定比他高，而他比后面的矮，所以也不会影响后面的k值
+            // 注意insert的用法为，在res.begin()+p[1]元素！后面！插入元素p
+        }
+        return res;
+    }
+};
+
+优化：用链表可以提高时间效率
