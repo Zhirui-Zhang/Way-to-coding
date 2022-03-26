@@ -50,6 +50,6 @@ public:
             }
             res.insert(it, p);      // 注意写法
         }
-        return vector<vector<int>>(res.begin(), res.end());     // 还有最后返回的写法，直接返回一个新构建的对象即可
+        return vector<vector<int>>(res.begin(), res.end());     // 还有最后返回的写法，直接返回一个新构建的对象即可，免得还得新构建一个vector，遍历push_back，太愚蠢
     }
 };
