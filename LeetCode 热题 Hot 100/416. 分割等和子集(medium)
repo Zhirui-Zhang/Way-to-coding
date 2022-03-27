@@ -15,7 +15,7 @@ public:
             
         int half = sum / 2, n = nums.size();
         
-        vector<int> dp(half+1, 0);                              // dp数组长度为half+1，其中dp[0]一定保持为0
+        vector<int> dp(half+1, 0);                              // dp数组长度为half+1，其中dp[0]一定保持为0，dp[j]表示背包的总容量为j时可以凑成的子集总和
 
         for(int i = 0; i < n; ++i){
             for(int j = half; j >= nums[i]; --j){               // 注意内层循环为倒序遍历！！！
