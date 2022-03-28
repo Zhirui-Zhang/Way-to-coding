@@ -42,7 +42,8 @@ class Solution {
 public:
     int pathSum(TreeNode* root, int sum) {
         if (root == NULL) return 0;
-        return pathWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+        return pathWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);  
+        //！！！注意这里是两个不同的函数！！！我擦，看了好久没看出来，气死了，算自己节点的pathWith(Root)函数并递归计算左右节点path(Sum)函数
     }
 
     int pathWithRoot(TreeNode* root, int sum) {
