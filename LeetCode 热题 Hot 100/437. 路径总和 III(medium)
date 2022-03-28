@@ -36,3 +36,18 @@ private:
         targetSum += root->val;   
     }
 };
+
+改进版：不用BFS，而是第一次遍历的是起点，不会求和累加。确定起点之后的第二次遍历，经过的所有节点都会被累加，成为路径和的一部分
+class Solution {
+public:
+    int pathSum(TreeNode* root, int sum) {
+        if (root == NULL) return 0;
+        return pathWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+    }
+
+    int pathWithRoot(TreeNode* root, int sum) {
+        if (root == NULL) return 0;
+        sum -= root->val;
+        return (sum == 0 ? 1 : 0) + pathWithRoot(root->left, sum) + pathWithRoot(root->right, sum);
+    }
+};
