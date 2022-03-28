@@ -52,3 +52,30 @@ public:
         return (sum == 0 ? 1 : 0) + pathWithRoot(root->left, sum) + pathWithRoot(root->right, sum);
     }
 };
+
+法2：前缀和的方法，现在没啥心情了，先复制一个示例，下次一定
+时间O(N)  空间O(N)
+class Solution {
+private:
+    unordered_map<int, int> prefix;         // <前缀和，其出现次数>
+    void dfs(TreeNode* root, int sum, int cur_sum, int& res)
+    {
+        if (!root) return;
+        cur_sum += root->val;               // 更新前缀和
+        // 当前路径中存在以当前节点为终点的和为sum的子路径
+        if (prefix.find(cur_sum - sum) != prefix.end())
+            res += prefix[cur_sum - sum];
+        prefix[cur_sum]++;                  // 将当前节点加入路径
+        dfs(root->left, sum, cur_sum, res); // 在其左子树中递归寻找
+        dfs(root->right, sum, cur_sum, res);// 在其右子树中递归寻找
+        prefix[cur_sum]--;                  // 回溯
+    }
+public:
+    int pathSum(TreeNode* root, int sum) 
+    {
+        int res = 0;    // 满足条件的路径数量
+        prefix[0] = 1;  // 前缀和为0的路径只有一条：哪个节点都不选
+        dfs(root, sum, 0, res);
+        return res;
+    }
+};
