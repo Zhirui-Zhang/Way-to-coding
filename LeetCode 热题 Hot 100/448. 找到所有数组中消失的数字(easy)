@@ -26,3 +26,22 @@ public:
         return res;
     }
 };
+
+改进版：每次对下标-1的值+n，注意要先取模，避免已经被增加过，之后遍历若值<=n说明没出现过
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n = nums.size();
+        for (auto& num : nums) {
+            int x = (num - 1) % n;
+            nums[x] += n;
+        }
+        vector<int> ret;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= n) {
+                ret.push_back(i + 1);
+            }
+        }
+        return ret;
+    }
+};
