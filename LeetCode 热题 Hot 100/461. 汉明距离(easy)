@@ -33,3 +33,16 @@ public:
         return ret;
     }
 };
+
+法2：n&n-1啊，直接比较有1的位数就行，我擦又没想起来
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int s = x ^ y, ret = 0;
+        while (s) {
+            s &= s - 1;
+            ret++;
+        }
+        return ret;
+    }
+};
