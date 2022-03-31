@@ -1,0 +1,23 @@
+法1：DFS，还比较好想，居然没超时
+时间O(2^N)  空间O(N)
+执行用时：1300 ms, 在所有 C++ 提交中击败了10.94% 的用户
+内存消耗：8.8 MB, 在所有 C++ 提交中击败了82.48% 的用户
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        dfs(nums, target, 0, 0);
+        return res;
+    }
+private:
+    int res;
+    void dfs(vector<int>& nums, int target, int i, int cur){
+        if(i == nums.size()){
+            if(cur == target){
+                res++;
+            }
+            return;
+        }
+        dfs(nums, target, i+1, cur+nums[i]);
+        dfs(nums, target, i+1, cur-nums[i]);
+    }
+};
