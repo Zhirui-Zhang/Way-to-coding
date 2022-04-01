@@ -20,3 +20,20 @@ private:
         dfs(root->left);
     }
 };
+
+
+优化：其实放在一个函数里就可以了
+class Solution {
+public:
+    TreeNode* convertBST(TreeNode* root) {
+        if(root){
+            dfs(root->right);
+            root->val += cur;
+            cur = root->val;
+            dfs(root->left);
+        }
+        return root;
+    }
+private:
+    int cur;
+};
