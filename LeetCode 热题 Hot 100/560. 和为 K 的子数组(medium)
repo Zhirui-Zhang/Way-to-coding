@@ -7,7 +7,7 @@ public:
     int subarraySum(vector<int>& nums, int k) {
         int res = 0, sum = 0;
         unordered_map<int, int> un_map;      // 记录前缀和，key为前n个元素的总和，value为该key出现的次数
-        un_map[0] = 1;
+        un_map[0] = 1;                       // 注意初始值，un[0]=1表示若元素值等于k则直接+1
         for(auto num : nums){
             sum += num;                      // sum为遍历的前缀和
             if(un_map.find(sum-k) != un_map.end()){
