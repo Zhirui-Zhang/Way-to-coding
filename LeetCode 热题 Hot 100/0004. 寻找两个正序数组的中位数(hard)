@@ -29,7 +29,7 @@ private:
             // 若n1较小，可以排除n1之前的数，更新k和index1的值，反之亦然
             if(nums1[newIndex1] <= nums2[newIndex2])    
             {
-                k -= newIndex1 - index1 + 1;
+                k -= newIndex1 - index1 + 1;        // 通常情况下，这里可以直接 k -= k/2 的，但是有时newIndex1 = n1 - 1时不满足条件，所以保险起见，用newIndex1来代替
                 index1 = newIndex1 + 1;
             }
             else
