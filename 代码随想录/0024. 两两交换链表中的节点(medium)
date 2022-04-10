@@ -1,0 +1,22 @@
+法1：双指针法，遍历模拟，注意指针指向即可
+时间O(N)  空间O(1)
+执行用时：4 ms, 在所有 C++ 提交中击败了51.27% 的用户
+内存消耗：7.4 MB, 在所有 C++ 提交中击败了11.18% 的用户
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* pre = dummy;
+        ListNode* cur = head;
+        while (cur && cur->next) {
+            ListNode* tmp = cur;
+            cur = cur->next;
+            pre->next = cur;
+            tmp->next = cur->next;
+            cur->next = tmp;
+            pre = tmp;
+            cur = tmp->next;
+        }
+        return dummy->next;
+    }
+};
