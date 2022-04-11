@@ -1,4 +1,4 @@
-两个哈希表，没想到这个复杂度居然可以，题目并不难，统计记录两个哈希表和为0的乘积总和即可，主要是这道题可以有重复的四元组，即答案[-1 -1 1 1] 与 [1 1 -1 -1]不一样，与四数之和还不同
+两个哈希表，没想到这个复杂度居然可以，题目并不难，统计记录两个哈希表和为0的乘积总和即可
 时间O(N^2)  空间O(N^2)
 执行用时：188 ms, 在所有 C++ 提交中击败了69.14% 的用户
 内存消耗：26.9 MB, 在所有 C++ 提交中击败了5.83% 的用户
@@ -27,25 +27,27 @@ public:
     }
 };
 
-改进：用一个哈希表就行了，两个空间开销太大
+改进：用一个哈希表就行了，两个空间开销太大，复杂度不变
+执行用时：212 ms, 在所有 C++ 提交中击败了37.21% 的用户
+内存消耗：23.6 MB, 在所有 C++ 提交中击败了62.39% 的用户
 class Solution {
 public:
-    int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
-        unordered_map<int, int> m; 
-        for (int a : A) {
-            for (int b : B) {
-                m[a + b]++;
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        int res = 0;
+        unordered_map<int, int> m;
+        for (auto n1 : nums1) {
+            for (auto n2 : nums2) {
+                m[n1+n2]++;
             }
         }
-        int count = 0; 
-        for (int c : C) {
-            for (int d : D) {
-                if (m.find(0 - (c + d)) != m.end()) {
-                    count += m[0 - (c + d)];
+        for (auto n3 : nums3) {
+            for (auto n4 : nums4) {
+                if (m.find(-n3-n4) != m.end()) {
+                    res += m[-n3-n4];
                 }
             }
         }
-        return count;
+        return res;
     }
 };
 
