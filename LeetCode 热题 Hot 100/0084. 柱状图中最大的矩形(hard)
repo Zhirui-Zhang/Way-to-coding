@@ -13,7 +13,7 @@ public:
             while(!s.empty() && heights[s.top()] > heights[i])    // 当前高度小于栈顶元素高度时计算面积，保证为单调递增栈
             {
                 int height = heights[s.top()];    // 矩形的高记作height
-                s.pop();
+                s.pop();                                      // 注意这里计算width时不应该用temp = s.top()后 width = i - temp，因为这样并不是该点高度持续值，总之在例中可以看出来
                 int width = (s.empty() ? i : i-s.top()-1);    // ！！！矩形的宽记作width，注意当栈为空时说明从头到i都为宽，记作i即可，否则为i-s.top()-1
                 res = max(res, height*width);     // 更新res
             }
