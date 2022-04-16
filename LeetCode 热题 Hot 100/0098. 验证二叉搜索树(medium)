@@ -25,8 +25,8 @@ public:
     bool isValidBST(TreeNode* root) {
         long temp = LONG_MIN;       // temp用来暂时存储中序遍历数组上一个元素值
         stack<TreeNode*> s;
-        while (root != nullptr || !s.empty()) {      
-            while (root != nullptr) {
+        while (root || !s.empty()) {      
+            while (root) {
                 s.push(root);
                 root = root->left;
             }
