@@ -131,6 +131,6 @@ public:
                 s.pop();
             }
         }
-        reverse(v.begin(), v.end());        // 注意最后要将res数组反转后输出
+        reverse(res.begin(), res.end());        // 注意最后要将res数组反转后输出
         return res;        
     }
