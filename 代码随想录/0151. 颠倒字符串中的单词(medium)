@@ -1,0 +1,28 @@
+法1：双指针法，从后往前遍历，遇到空格判断是否是多余空格，若不是，在s后追加该部分单词，注意最后需要判断是否有首个单词遗漏
+时间O(N)  空间O(1)
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：7.2 MB, 在所有 C++ 提交中击败了29.21% 的用户
+class Solution {
+public:
+    string reverseWords(string s) {
+        int n = s.size();
+        int i = n - 1, j = n;
+        for (; i >= 0; i--) {
+            if (s[i] == ' ') {
+                if (j == i + 1) {     // 若为邻接空格，则跳过
+                    j--;
+                } else {
+                    s += s.substr(i + 1, j - i - 1);
+                    s += ' ';
+                    j = i;
+                }
+            }
+        }
+        if (s[0] != ' ') {              // 注意判断首个字符是否为空格，不为空格需要追加首单词，为空格则需删除末尾多余空格
+            s += s.substr(0, j);
+        } else {
+            s.pop_back();
+        }
+        return s.substr(n);
+    }
+};
