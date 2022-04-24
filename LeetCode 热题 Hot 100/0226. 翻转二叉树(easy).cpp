@@ -23,10 +23,41 @@ public:
     TreeNode* invertTree(TreeNode* root) {
         if(!root)    return root;
         TreeNode* temp = root->left;  
-        root->left = mirrorTree(root->right);
-        root->right = mirrorTree(temp);
+        root->left = invertTree(root->right);
+        root->right = invertTree(temp);
+        return root;
+    }
+};
+
+改进版2：
+采用更通俗易懂的BFS方式
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if (!root) return root;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
         return root;
     }
 };
 
 法2：BFS略
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        queue<TreeNode*> que;
+        if (root != NULL) que.push(root);
+        while (!que.empty()) {
+            int size = que.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode* node = que.front();
+                que.pop();
+                swap(node->left, node->right); // 节点处理
+                if (node->left) que.push(node->left);
+                if (node->right) que.push(node->right);
+            }
+        }
+        return root;
+    }
+};
