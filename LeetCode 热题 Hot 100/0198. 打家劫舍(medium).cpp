@@ -27,6 +27,8 @@ public:
     int rob(vector<int>& nums) {
         int n = nums.size();
         if(n == 1)    return nums[0];
+        // first表示前一天能获得的最大值，second表示今天能获得的最大值
+        // 状态转移方程：dp[i] = max(dp[i-1], dp[i-2]+num[i]);
         int first = nums[0], second = max(nums[0], nums[1]);
         for(int i = 2; i < n; ++i)
         {
