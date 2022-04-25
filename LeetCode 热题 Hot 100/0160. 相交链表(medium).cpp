@@ -1,7 +1,7 @@
-法1：双指针法，做过的题，做法略，只不过代码可以简化
+法1：双指针法，做过的题，做法略，只不过代码可以简化，只需把while循环中的条件改为 A != B 即可
 时间O(M+N)  空间O(1)
 执行用时：40 ms, 在所有 C++ 提交中击败了70.18% 的用户
-内存消耗：14.3 MB, 在所有 C++ 提交中击败了54.63% 的用
+内存消耗：14.3 MB, 在所有 C++ 提交中击败了54.63% 的用户
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
