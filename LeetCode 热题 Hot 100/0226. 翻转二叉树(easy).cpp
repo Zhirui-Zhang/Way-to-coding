@@ -6,7 +6,7 @@ class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
         if(!root)    return root;
-        TreeNode* temp = root->left;
+        TreeNode* temp = root->left;        // 其实这三句话和下面的swap(root->left, root->right)意思一样
         root->left = root->right;
         root->right = temp;
         invertTree(root->left);
