@@ -39,7 +39,7 @@ public:
 private:
     int QuickSelection(vector<int>& nums, int left, int right, int index)
     {
-        if(left >= right)    return nums[index];
+        if(left >= right)    return nums[index];        // 说明数组已完全有序，返回index下标元素即可
         int j = partition(nums, left, right);
         if(j == index)    return nums[index];
         else if(j < index)    return QuickSelection(nums, j+1, right, index);
