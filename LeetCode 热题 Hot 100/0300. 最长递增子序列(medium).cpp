@@ -35,7 +35,8 @@ public:
             {
                 int mid = (i + j) / 2;  // 二分查找最适合num的位置，即num大了往右查，小了往左查
                 if(dp[mid] < num)    i = mid + 1;       // 注意二分边界范围，其实就是算法lower_bound()的思想
-                else    j = mid;
+                else    j = mid;        
+                // 注意为了满足严格递增思想，即使当前位置的元素dp[mid]等于num也应该往左查，插入到小的位置上，比如例中的18应插在101的位置上
             }
             dp[j] = num;                // 对找到的合适位置j处放置num
             if(res == j)    res++;      // 判断当前是否为最大值并更新res
