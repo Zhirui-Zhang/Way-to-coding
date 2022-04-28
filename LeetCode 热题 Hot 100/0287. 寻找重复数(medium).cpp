@@ -14,7 +14,7 @@ public:
             {
                 if(num <= mid)    cnt++;
             }
-            if(cnt > mid)    right = mid;         // 若小于mid说明在左半边，否则在右半边
+            if(cnt > mid)    right = mid;         // 若cnt大于mid说明在左半边，否则在右半边
             else    left = mid + 1;
         }
         return left;
@@ -28,19 +28,17 @@ public:
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int fast = 0, slow = 0;
-        while(true)
+        int slow = nums[0], fast = nums[nums[0]];
+        while(slow != fast)
         {
             fast = nums[nums[fast]];
             slow = nums[slow];
-            if(slow == fast)    break;
         }
         slow = 0;
-        while(true)
+        while(slow != fast)
         {
             slow = nums[slow];
             fast = nums[fast];
-            if(slow == fast)    break; 
         }
         return slow;
     }
