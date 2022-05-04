@@ -25,6 +25,7 @@ public:
             res.push_back(un);
         }
         return res;
+        // 也可直接替换成 return vector<string> (un_set.begin(), un_set.end()); 利用迭代器构造初始化
     }
 private:
     unordered_set<string> un_set;           // un_set用来删除重复字符串，保留重复中的唯一一个后输出到res中
@@ -55,5 +56,6 @@ private:
         }
 
         temp.pop_back();
+        // 注意剪枝回溯
     }
 };
