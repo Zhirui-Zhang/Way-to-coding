@@ -15,7 +15,7 @@ public:
         for(auto [k, v] : un_map){
             temp.push_back({k, v});
         }
-        sort(temp.begin(), temp.end(), [](auto x, auto y){return x.second > y.second;});  // 按照出现次数排序
+        sort(temp.begin(), temp.end(), [](auto& x, auto& y){return x.second > y.second;});  // 按照出现次数排序
         for(int i = 0; i < k; ++i){       // 放入频率最高的前K个元素
             res.push_back(temp[i].first);
         }
@@ -32,7 +32,7 @@ public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         vector<int> res;
         unordered_map<int, int> un_map;
-        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(&cmp)> q(cmp);      // 注意写法！！！
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(&cmp)> q(cmp);      // 注意写法！！！ 用decltype(cmp)* 也行
         for(auto num : nums){
             un_map[num]++;
         }
@@ -56,7 +56,8 @@ public:
 
 private:
     static bool cmp(pair<int, int>& x, pair<int, int>& y){
-        return x.second > y.second;
+        return x.second > y.second;     
+        // 注意小顶堆的写法，要求前K个最大的，但是用 x.second > y.second比较，结果q.top()存放的却是当前K个中出现次数最小的值
     }
 };
 
