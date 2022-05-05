@@ -23,3 +23,29 @@ private:
         }
     }
 };
+
+剪枝优化：
+执行用时：0 ms, 在所有 C++ 提交中击败了100.00% 的用户
+内存消耗：6.2 MB, 在所有 C++ 提交中击败了77.24% 的用户
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        dfs(k, n, 1);
+        return res;
+    }
+private:
+    vector<vector<int>> res;
+    vector<int> tmp;
+    void dfs(int k, int n, int cur) {
+        if (n < 0) return;      // target为负数时直接返回
+        if (tmp.size() == k) {
+            if (n == 0) res.push_back(tmp);
+            return;
+        }
+        for (int i = cur; i <= 9 - (k - tmp.size()) + 1; ++i) {     // 同时i不能达到范围边界
+            tmp.push_back(i);
+            dfs(k, n - i, i + 1);
+            tmp.pop_back();
+        }
+    }
+};
