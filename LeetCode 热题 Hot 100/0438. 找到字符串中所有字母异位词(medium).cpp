@@ -27,6 +27,8 @@ public:
 };
 
 哈希表版本，增加check函数比较是否相等
+执行用时：24 ms, 在所有 C++ 提交中击败了21.50% 的用户
+内存消耗：8.4 MB, 在所有 C++ 提交中击败了73.11% 的用户
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
@@ -36,16 +38,16 @@ public:
         unordered_map<char, int> ms;
         unordered_map<char, int> mp;
         for(int i = 0; i < m; ++i){
-            ms[s[i]-'a']++;
-            mp[p[i]-'a']++;
+            ms[s[i]]++;
+            mp[p[i]]++;
         }
         if(check(ms, mp)){
             res.push_back(0);
         }
         for(int i = m; i < n; ++i){
             int j = i - m;
-            ms[s[j]-'a']--;
-            ms[s[i]-'a']++;
+            ms[s[j]]--;
+            ms[s[i]]++;
             if(check(ms, mp))    res.push_back(j+1);
         }
         return res;
