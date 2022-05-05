@@ -23,7 +23,7 @@ public:
     }
 private:
     int res;
-    void dfs(TreeNode* root, int targetSum){    //常规BFS写法，后序遍历，注意剪枝
+    void dfs(TreeNode* root, long targetSum){    //常规BFS写法，后序遍历，注意剪枝
         if(!root){
             return;
         }
@@ -37,19 +37,31 @@ private:
     }
 };
 
-改进版：不用BFS，而是第一次遍历的是起点，不会求和累加。确定起点之后的第二次遍历，经过的所有节点都会被累加，成为路径和的一部分
+改进版：不用BFS，而是双重递归，分别计算考虑root节点的值和不考虑root节点，转而计算其左右节点的路径和
+时间O(N^2)  空间O(N)
+执行用时：20 ms, 在所有 C++ 提交中击败了57.64% 的用户
+内存消耗：15.4 MB, 在所有 C++ 提交中击败了60.43% 的用户
 class Solution {
 public:
-    int pathSum(TreeNode* root, int sum) {
-        if (root == NULL) return 0;
-        return pathWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);  
-        //！！！注意这里是两个不同的函数！！！我擦，看了好久没看出来，气死了，算自己节点的pathWith(Root)函数并递归计算左右节点path(Sum)函数
+    int pathSum(TreeNode* root, int targetSum) {
+        if (!root)    return 0;
+        dfs(root, targetSum);
+        pathSum(root->left, targetSum);
+        pathSum(root->right, targetSum);
+        return res;
     }
-
-    int pathWithRoot(TreeNode* root, int sum) {
-        if (root == NULL) return 0;
-        sum -= root->val;
-        return (sum == 0 ? 1 : 0) + pathWithRoot(root->left, sum) + pathWithRoot(root->right, sum);
+private:
+    int res;
+    void dfs(TreeNode* root, long targetSum) {      // 注意这里为了避免测试用例溢出，采用long类型
+        if (!root) {
+            return;
+        }
+        targetSum -= root->val;
+        if (targetSum == 0) {                       // 等于targetSum值时不能直接返回，因为继续向下计算可能还存在不同的路径符合要求
+            res++;
+        }
+        dfs(root->left, targetSum);
+        dfs(root->right, targetSum);  
     }
 };
 
