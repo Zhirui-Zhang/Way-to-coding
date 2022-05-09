@@ -9,7 +9,7 @@ public:
         int cur_max = INT_MIN, cur_min = INT_MAX;       // 注意初始化写法，当前最大值和最小值分别初始化为MIN和MAX
         int left = -1, right = - 1;                    // 设置左右指针，依次从左遍历和从右遍历，分别更新右指针和左指针
         for(int i = 0; i < n; ++i){
-            if(nums[i] < cur_max){
+            if(nums[i] < cur_max){                      // 注意如果判断条件为小于相等的话，不能实现完全递增，如[1 2 3 3 3]输出3实际应为0
                 right = i;
             }
             else{
