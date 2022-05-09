@@ -5,21 +5,19 @@
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int> temp;
-        res.push_back(temp);    // 先加入一个空集
-        dfs(temp, nums, 0);
+        dfs(nums, 0);
         return res;
     }
 private:
     vector<vector<int>> res;
-    void dfs(vector<int>& temp, vector<int>& nums, int pos)
+    vector<int> temp;
+    void dfs(vector<int>& nums, int pos)
     {
-        if(pos == nums.size())    return;   // 退出条件，当前遍历位置超过数组长度
-        for(; pos < nums.size(); pos++)
-        {
-            temp.push_back(nums[pos]);      // 压入一个后立即保存该子集，每次递归结束返回后记得弹出最后一个元素
-            res.push_back(temp);
-            dfs(temp, nums, pos + 1);
+        res.push_back(temp);                 // 退出前先加入子集，可以获得一个空集
+        if (pos == nums.size())    return;   // 退出条件，当前遍历位置超过数组长度
+        for (; pos < nums.size(); pos++) {
+            temp.push_back(nums[pos]);       // 压入一个后立即保存该子集，每次递归结束返回后记得弹出最后一个元素
+            dfs(nums, pos + 1);
             temp.pop_back();
         }          
     }
