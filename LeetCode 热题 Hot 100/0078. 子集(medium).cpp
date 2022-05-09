@@ -14,7 +14,7 @@ private:
     void dfs(vector<int>& nums, int pos)
     {
         res.push_back(temp);                 // 退出前先加入子集，可以获得一个空集
-        if (pos == nums.size())    return;   // 退出条件，当前遍历位置超过数组长度
+        if (pos == nums.size())    return;   // 退出条件，当前遍历位置超过数组长度，其实可以省略，因为在下面的for循环中就已经规定了右边界
         for (; pos < nums.size(); pos++) {
             temp.push_back(nums[pos]);       // 压入一个后立即保存该子集，每次递归结束返回后记得弹出最后一个元素
             dfs(nums, pos + 1);
