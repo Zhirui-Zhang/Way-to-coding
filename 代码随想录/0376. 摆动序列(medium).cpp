@@ -30,7 +30,7 @@ public:
         return res;
     }
 };
-
+ 
 优化：其实不需要tmp变量记录前一个值，也不需要status记录正负，只需要记录上一次的差值比较即可，为零的情况也可以归纳入preDiff >= 0中
 class Solution {
 public:
