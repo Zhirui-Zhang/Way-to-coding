@@ -17,3 +17,20 @@ public:
         return dp[amount] == amount+1 ? -1 : dp[amount];    // 注意最后返回值若为amount+1说明无法构成该面额，返回-1
     }
 };
+
+法2：这道题不强调硬币的顺序，即无论排列还是组合，故内外两侧遍历顺序怎样都行，这里给出外物品内背包的方法2
+执行用时：68 ms, 在所有 C++ 提交中击败了76.70% 的用户
+内存消耗：14.1 MB, 在所有 C++ 提交中击败了39.14% 的用户
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount + 1, amount + 1);     // 初始为一个较大值
+        dp[0] = 0;      // 注意初始化当背包容量为0时，不需要硬币数量
+        for (int i = 0; i < coins.size(); ++i) {    // 外层遍历物品
+            for (int j = coins[i]; j < dp.size(); ++j) {    // 内层遍历背包
+                dp[j] = min(dp[j], 1 + dp[j - coins[i]]);       
+            }
+        }
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
+    }
+};
