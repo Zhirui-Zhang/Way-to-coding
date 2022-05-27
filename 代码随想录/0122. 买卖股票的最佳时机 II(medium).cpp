@@ -14,6 +14,22 @@ public:
         return a;
     }
 };
+DP法：未省略原版，突出状态转移方程的写法
+执行用时：12 ms, 在所有 C++ 提交中击败了16.86% 的用户
+内存消耗：14.8 MB, 在所有 C++ 提交中击败了9.80% 的用户
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<vector<int>> dp(n, vector<int> (2, 0));      // dp[i][0]表示第i天手中无股票时最大利润，dp[i][1]表示第i天手中有股票时最大利润
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; ++i) {
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+        }
+        return dp[n - 1][0];
+    }
+};
 
 法2：贪心法，只收集差值为正利润的结果加入到res中
 class Solution {
