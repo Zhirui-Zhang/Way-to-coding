@@ -19,8 +19,8 @@ punums2lic:
 
 优化版：可以用一维滚动数组表示，但此时nums2就需要反向遍历了
 时间O(MN)  空间O(N)
-clnums1ss Solution {
-punums2lic:
+class Solution {
+public:
     int findLength(vector<int>& nums1, vector<int>& nums2) {
         int m = nums1.size(), n = nums2.size(), res = 0;
         vector<int> dp(vector<int>(n + 1, 0));
@@ -32,6 +32,6 @@ punums2lic:
                 res = max(res, dp[j]);
             }
         }
-        return result;
+        return res;
     }
 };
