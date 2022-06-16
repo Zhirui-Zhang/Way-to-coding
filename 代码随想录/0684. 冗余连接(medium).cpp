@@ -46,7 +46,7 @@ private:
 
     // 并查集初始化，使每个节点原始的根是它自己
     void init(int n) {
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i <= n; ++i) {
             father[i] = i;
         }
     }
@@ -61,7 +61,7 @@ private:
         u = find(u);
         v = find(v);
         if (u == v) return ;
-        father[v] = u;
+        father[v] = u;  // 一定要注意这里是分别找到两个节点的最终父节点，比较是否相同，若不相同，让两个最终父节点互相建立关系即可
     }
     // 判断 u 和 v是否找到同一个根
     bool same(int u, int v) {
