@@ -12,23 +12,21 @@ public:
     ListNode *detectCycle(ListNode *head) {
         ListNode* pre = head;
         ListNode* cur = head;
-        bool hasCycle = false;
         while(cur && cur->next)   // 由于cur每次要移动两次，故需要判断->next是否也为空
         {
             cur = cur->next->next;
             pre = pre->next;
             if(pre == cur)        // 若相遇，标志位置为true后循环遍历即可
             {
-                hasCycle = true;
                 pre = head;
                 while(pre != cur)
                 {
                     pre = pre->next;
                     cur = cur->next;
                 }
-                break;
+                return pre;
             }
         }
-        return hasCycle ? cur : NULL;
+        return NULL;
     }
 };
